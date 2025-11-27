@@ -1,35 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Books - Tawseef Ahmad</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for professional icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
     <script>
-        // Custom Tailwind Configuration (Consistent with portfolio)
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'primary-dark': '#0F172A',
-                        'primary-light': '#334155',
-                        'accent-teal': '#14B8A6',
+                        dark: '#050505',
+                        light: '#ffffff',
+                        accent: '#2dd4bf', /* Teal 400 */
+                        accent2: '#818cf8', /* Indigo 400 */
+                        glass: 'rgba(255, 255, 255, 0.03)',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
+                        sans: ['Outfit', 'sans-serif'],
                     },
                     animation: {
-                        fadeInUp: 'fadeInUp 0.8s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-glow': 'pulseGlow 4s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(40px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        pulseGlow: {
+                            '0%': { opacity: '0.5' },
+                            '100%': { opacity: '0.8' },
+                        }
                     }
                 },
             },
@@ -37,285 +50,257 @@
     </script>
 
     <style>
-        #mobile-menu {
-            transition: all 0.3s ease-in-out;
-            transform-origin: top;
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
         }
-        .hidden-menu {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            padding: 0;
+
+        /* --- Fluid Gradient Background --- */
+        .fluid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(45, 212, 191, 0.08), transparent 40%), 
+                radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.08), transparent 40%);
         }
-        .visible-menu {
-            max-height: 500px;
-            opacity: 1;
-            padding: 0.5rem 0;
+
+        /* --- Glassmorphism --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
         }
-        html {
-            scroll-behavior: smooth;
+        
+        .glass-panel:hover {
+            border-color: rgba(45, 212, 191, 0.3);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-5px);
         }
-        .book-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .book-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(20, 184, 166, 0.3);
+
+        /* --- Typography & Gradients --- */
+        .text-gradient {
+            background: linear-gradient(135deg, #2dd4bf, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #2dd4bf, transparent);
+            border-radius: 2px;
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2dd4bf; }
+
+        /* Mobile Menu */
+        #mobile-menu { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow: hidden; }
+        .menu-hidden { max-height: 0; opacity: 0; }
+        .menu-visible { max-height: 600px; opacity: 1; }
     </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-100 pt-20 leading-relaxed">
+<body class="antialiased selection:bg-accent selection:text-dark">
 
-    <!-- HEADER: Fixed Navigation (Consistent) -->
-    <header class="fixed top-0 left-0 w-full bg-primary-dark text-white shadow-2xl z-50 border-b-4 border-accent-teal">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <div class="flex items-center">
-                <img src="my image.jpg" alt="Portfolio Logo" class="w-12 h-12 rounded-full object-cover border-2 border-accent-teal mr-4 transition-transform hover:rotate-3" onerror="this.onerror=null;this.src='https://placehold.co/50x50/0F172A/14B8A6?text=YN'">
-                <h1 class="text-xl font-extrabold tracking-widest uppercase">Tawseef Ahmad</h1>
-            </div>
+    <!-- Ambient Background -->
+    <div class="fluid-bg"></div>
 
-            <!-- Desktop Navigation Links -->
-            <nav id="desktop-nav" class="hidden md:flex space-x-2 lg:space-x-6">
-                <a href="index.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    HOME
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+    <!-- NAVIGATION -->
+    <header class="fixed top-0 w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 group cursor-pointer">
+                    <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-white/10 group-hover:border-accent transition duration-500">
+                        <img src="my image.jpg" alt="Logo" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/50x50/0F172A/14B8A6?text=TA'">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg tracking-wide leading-none text-white group-hover:text-accent transition">TAWSEEF</span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Portfolio</span>
+                    </div>
                 </a>
-                <a href="about.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    ABOUT ME
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-                <a href="skills.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    SKILLS
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-                <a href="books.html" class="text-sm font-bold p-2 rounded-lg text-accent-teal bg-white bg-opacity-10 shadow-inner transition duration-300 relative group">
-                    MY BOOKS
-                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accent-teal"></span>
-                </a>
-                <a href="education.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    EDUCATION
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-                <a href="hobbies.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    HOBBIES
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-                <!-- MY BOOKS is the active link for this page -->
-                
-                <a href="contact.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    CONTACT
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-            </nav>
 
-            <!-- Mobile Menu Button -->
-            <div class="md:hidden flex items-center">
-                <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-accent-teal hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-teal transition duration-150 ease-in-out">
-                    <i id="menu-icon-open" class="fas fa-bars h-6 w-6"></i>
-                    <i id="menu-icon-close" class="fas fa-times h-6 w-6 hidden"></i>
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Home</a>
+                    <a href="skills.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Skills</a>
+                    <a href="graphic_design.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Designs</a>
+                    <a href="books.html" class="px-4 py-2 rounded-full text-sm font-medium text-white bg-white/10 border border-white/5 transition-all">Books</a>
+                    <a href="education.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Education</a>
+                    <a href="contact.html" class="ml-2 px-6 py-2 rounded-full text-sm font-bold bg-accent text-dark hover:bg-white hover:shadow-[0_0_20px_rgba(45,212,191,0.4)] transition-all">Contact</a>
+                </nav>
+
+                <!-- Mobile Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white p-2 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
-        
+
         <!-- Mobile Menu -->
-        <nav id="mobile-menu" class="md:hidden hidden-menu bg-primary-dark/95 border-t border-accent-teal/50">
-            <div class="pt-2 pb-3 space-y-1 px-4 max-w-7xl mx-auto">
-                <a href="index.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    HOME
-                </a>
-                <a href="about.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    ABOUT ME
-                </a>
-                <a href="skills.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    SKILLS
-                </a>
-                <a href="books.html" class="block text-accent-teal font-bold p-2 rounded-lg bg-white bg-opacity-10 shadow-inner transition duration-300">
-                    MY BOOKS
-                </a>
-                <a href="education.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    EDUCATION
-                </a>
-                <a href="hobbies.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    HOBBIES
-                </a>
-                
-                <a href="contact.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    CONTACT
-                </a>
+        <div id="mobile-menu" class="md:hidden menu-hidden bg-[#0a0a0a] border-t border-white/10">
+            <div class="px-6 pt-4 pb-8 space-y-2">
+                <a href="index.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Home</a>
+                <a href="skills.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Skills</a>
+                <a href="graphic_design.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Designs</a>
+                <a href="books.html" class="block px-4 py-3 rounded-xl text-base font-medium text-white bg-white/10 border-l-4 border-accent">Books</a>
+                <a href="education.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Education</a>
+                <a href="contact.html" class="block mt-6 px-4 py-3 rounded-xl text-base font-bold text-center bg-accent text-dark">Contact Me</a>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="w-full">
-
-        <!-- HERO SECTION -->
-        <section class="bg-gradient-to-br from-primary-dark via-primary-light to-primary-dark text-white py-20 md:py-32">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <div class="animate-fadeInUp" style="animation-delay: 0.1s;">
-                    <div class="text-5xl md:text-6xl text-accent-teal mb-4">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <h2 class="text-4xl md:text-6xl font-black mb-6">
-                        My <span class="text-accent-teal">Books</span>
-                    </h2>
-                    <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-8">
-                        Sharing knowledge through comprehensive guides on Accounting, Data Management, and Professional Tools
-                    </p>
-                    <div class="flex justify-center gap-2 text-sm text-gray-400">
-                        <span class="px-4 py-2 bg-white/10 rounded-full">
-                            <i class="fas fa-book mr-2"></i>2 Books Published
-                        </span>
-                        <span class="px-4 py-2 bg-white/10 rounded-full">
-                            <i class="fas fa-download mr-2"></i>Free to Read
-                        </span>
-                    </div>
-                </div>
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-slide-up" style="animation-delay: 0.1s;">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-widest mb-6">
+                    <i class="fas fa-book-open"></i> Published Works
+                </span>
             </div>
-        </section>
+            
+            <h1 class="animate-slide-up text-4xl md:text-6xl font-black text-white mb-6" style="animation-delay: 0.2s;">
+                My <span class="text-gradient">Library</span>
+            </h1>
+            
+            <p class="animate-slide-up text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed" style="animation-delay: 0.3s;">
+                Sharing knowledge through comprehensive guides on Accounting, Data Management, and Professional Tools. Free to read and download.
+            </p>
+        </div>
+    </section>
 
-        <!-- BOOKS SECTION -->
-        <section class="py-16 md:py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- BOOKS GRID -->
+    <section class="pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 
-                <!-- Book 1: E-Book Tally Prime -->
-                <div class="book-card mb-16 bg-gray-50 rounded-2xl shadow-xl overflow-hidden border-l-8 border-accent-teal">
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <!-- Book Cover -->
-                        <div class="lg:col-span-1 p-8 flex items-center justify-center bg-gradient-to-br from-primary-dark to-primary-light">
-                            <img src="tally prime book cover.png" 
-                                 alt="E-Book Tally Prime Cover" 
-                                 class="w-full max-w-sm rounded-lg shadow-2xl border-4 border-accent-teal transform hover:scale-105 transition-transform duration-300">
+                <!-- Book 1: Tally Prime -->
+                <div class="glass-panel p-8 rounded-2xl animate-slide-up" style="animation-delay: 0.4s;">
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <!-- Cover -->
+                        <div class="w-full md:w-48 shrink-0">
+                            <div class="aspect-[2/3] rounded-lg overflow-hidden border border-white/10 relative group shadow-2xl">
+                                <img src="tally prime book cover.png" alt="Tally Prime Book" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                            </div>
                         </div>
                         
-                        <!-- Book Details -->
-                        <div class="lg:col-span-2 p-8 flex flex-col justify-center">
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="px-3 py-1 bg-accent-teal text-white text-xs font-bold rounded-full uppercase">
-                                    Accounting
-                                </span>
-                                <span class="px-3 py-1 bg-primary-dark text-white text-xs font-bold rounded-full uppercase">
-                                    Tally Prime
-                                </span>
+                        <!-- Details -->
+                        <div class="flex-1">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-2 py-1 rounded bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-wider">Accounting</span>
+                                <span class="px-2 py-1 rounded bg-white/5 text-gray-400 text-[10px] font-bold uppercase tracking-wider">Tally Prime</span>
                             </div>
                             
-                            <h3 class="text-3xl md:text-4xl font-black text-primary-dark mb-4">
-                                Mastering Tally Prime
-                            </h3>
+                            <h3 class="text-2xl font-bold text-white mb-3">Mastering Tally Prime</h3>
                             
-                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-                                A comprehensive guide to accounting basics and Tally Prime software. This e-book consolidates knowledge from various courses into a single, easy-to-understand resource covering everything from GST fundamentals to advanced accounting entries.
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                                A comprehensive guide to accounting basics and Tally Prime software. Covers GST fundamentals, practical entries, and financial reporting.
                             </p>
                             
-                            <div class="space-y-3 mb-6">
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-accent-teal text-xl mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-primary-dark">Complete Accounting Fundamentals</h4>
-                                        <p class="text-gray-600 text-sm">Learn bookkeeping, ledgers, groups, and vouchers from scratch</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-accent-teal text-xl mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-primary-dark">GST Made Simple</h4>
-                                        <p class="text-gray-600 text-sm">Understand CGST, SGST, IGST with practical examples and filing procedures</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-accent-teal text-xl mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-primary-dark">Step-by-Step Practical Entries</h4>
-                                        <p class="text-gray-600 text-sm">Purchase, sales, payment, receipt, and complete business cycle entries</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-accent-teal text-xl mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-primary-dark">Financial Reporting & Analysis</h4>
-                                        <p class="text-gray-600 text-sm">Master balance sheets, P&L accounts, trial balance, and bank reconciliation</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <a href="e-book tally prime.pdf" target="_blank" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold rounded-lg shadow-xl bg-accent-teal text-white hover:bg-teal-600 transition duration-300 transform hover:scale-105">
-                                    <i class="fas fa-book-reader mr-3"></i> Read Mode
+                            <!-- Key Points -->
+                            <ul class="space-y-2 mb-8">
+                                <li class="flex items-start gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-check text-accent mt-0.5"></i>
+                                    <span>Complete Accounting Fundamentals</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-check text-accent mt-0.5"></i>
+                                    <span>GST Made Simple (CGST, SGST, IGST)</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-check text-accent mt-0.5"></i>
+                                    <span>Financial Reporting & Analysis</span>
+                                </li>
+                            </ul>
+
+                            <!-- Actions -->
+                            <div class="flex flex-wrap gap-3">
+                                <a href="e-book tally prime.pdf" target="_blank" class="px-5 py-2.5 rounded-full bg-accent text-dark text-sm font-bold hover:bg-white hover:shadow-[0_0_20px_rgba(45,212,191,0.4)] transition-all">
+                                    <i class="fas fa-book-reader mr-2"></i> Read Now
                                 </a>
-                                <a href="e-book tally prime.pdf" download class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold rounded-lg shadow-xl border-2 border-primary-dark text-primary-dark bg-white hover:bg-gray-100 transition duration-300 transform hover:scale-105">
-                                    <i class="fas fa-download mr-3"></i> Download PDF
+                                <a href="e-book tally prime.pdf" download class="px-5 py-2.5 rounded-full border border-white/20 text-white text-sm font-medium hover:bg-white/5 transition-all">
+                                    <i class="fas fa-download mr-2"></i> Download
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Book 2: Power Query Mastery -->
-                <div class="book-card bg-gray-50 rounded-2xl shadow-xl overflow-hidden border-l-8 border-accent-teal">
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <!-- Book Cover -->
-                        <div class="lg:col-span-1 p-8 flex items-center justify-center bg-gradient-to-br from-primary-dark to-primary-light">
-                            <img src="power query book cover inner.png" 
-                                 alt="Power Query Mastery Cover" 
-                                 class="w-full max-w-sm rounded-lg shadow-2xl border-4 border-accent-teal transform hover:scale-105 transition-transform duration-300">
+                <!-- Book 2: Power Query -->
+                <div class="glass-panel p-8 rounded-2xl animate-slide-up" style="animation-delay: 0.5s;">
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <!-- Cover -->
+                        <div class="w-full md:w-48 shrink-0">
+                            <div class="aspect-[2/3] rounded-lg overflow-hidden border border-white/10 relative group shadow-2xl">
+                                <img src="power query book cover inner.png" alt="Power Query Book" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                            </div>
                         </div>
                         
-                        <!-- Book Details -->
-                        <div class="lg:col-span-2 p-8 flex flex-col justify-center">
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="px-3 py-1 bg-accent-teal text-white text-xs font-bold rounded-full uppercase">
-                                    Data Analysis
-                                </span>
-                                <span class="px-3 py-1 bg-primary-dark text-white text-xs font-bold rounded-full uppercase">
-                                    Excel
-                                </span>
+                        <!-- Details -->
+                        <div class="flex-1">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-2 py-1 rounded bg-accent2/10 text-accent2 text-[10px] font-bold uppercase tracking-wider">Data Analysis</span>
+                                <span class="px-2 py-1 rounded bg-white/5 text-gray-400 text-[10px] font-bold uppercase tracking-wider">Excel</span>
                             </div>
                             
-                            <h3 class="text-3xl md:text-4xl font-black text-primary-dark mb-4">
-                                Mastering Power Query in Excel
-                            </h3>
+                            <h3 class="text-2xl font-bold text-white mb-3">Power Query Mastery</h3>
                             
-                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-                                From basics to professional automation - a complete guide for data cleaning, transformation, and automation. Learn to turn hours of manual data work into one-click automated processes using Excel's most powerful yet underused tool.
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                                From basics to professional automation. Learn to clean, transform, and automate data workflows using Excel's most powerful tool.
                             </p>
                             
-                            <div class="space-y-3 mb-6">
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-accent-teal text-xl mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-primary-dark">Data Import & Connection</h4>
-                                        <p class="text-gray-600 text-sm">Connect to Excel files, CSVs, databases, PDFs, websites, and folders</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-accent-teal text-xl mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-primary-dark">Advanced Data Cleaning</h4>
-                                        <p class="text-gray-600 text-sm">Remove duplicates, handle nulls, transpose, merge, and append queries</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-accent-teal text-xl mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-primary-dark">Automation & Refresh</h4>
-                                        <p class="text-gray-600 text-sm">Build automated data systems with one-click refresh capabilities</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-accent-teal text-xl mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-primary-dark">Real-World Projects</h4>
-                                        <p class="text-gray-600 text-sm">Practical examples including financial data, HR automation, and CSV consolidation</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <a href="Power Query Mastery.pdf" target="_blank" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold rounded-lg shadow-xl bg-accent-teal text-white hover:bg-teal-600 transition duration-300 transform hover:scale-105">
-                                    <i class="fas fa-book-reader mr-3"></i> Read Mode
+                            <!-- Key Points -->
+                            <ul class="space-y-2 mb-8">
+                                <li class="flex items-start gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-check text-accent2 mt-0.5"></i>
+                                    <span>Data Import & Connection</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-check text-accent2 mt-0.5"></i>
+                                    <span>Advanced Cleaning & Automation</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-check text-accent2 mt-0.5"></i>
+                                    <span>Real-World Projects</span>
+                                </li>
+                            </ul>
+
+                            <!-- Actions -->
+                            <div class="flex flex-wrap gap-3">
+                                <a href="Power Query Mastery.pdf" target="_blank" class="px-5 py-2.5 rounded-full bg-accent2 text-white text-sm font-bold hover:bg-white hover:text-dark hover:shadow-[0_0_20px_rgba(129,140,248,0.4)] transition-all">
+                                    <i class="fas fa-book-reader mr-2"></i> Read Now
                                 </a>
-                                <a href="Power Query Mastery.pdf" download class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold rounded-lg shadow-xl border-2 border-primary-dark text-primary-dark bg-white hover:bg-gray-100 transition duration-300 transform hover:scale-105">
-                                    <i class="fas fa-download mr-3"></i> Download PDF
+                                <a href="Power Query Mastery.pdf" download class="px-5 py-2.5 rounded-full border border-white/20 text-white text-sm font-medium hover:bg-white/5 transition-all">
+                                    <i class="fas fa-download mr-2"></i> Download
                                 </a>
                             </div>
                         </div>
@@ -323,80 +308,45 @@
                 </div>
 
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- CALL TO ACTION SECTION -->
-        <section class="bg-primary-dark py-16">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-                <h3 class="text-3xl md:text-4xl font-extrabold mb-4">
-                    Want to Learn More?
-                </h3>
-                <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-                    Explore my skills and experience, or get in touch to discuss how I can help with your accounting or data automation needs.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="skills.html" class="inline-block px-10 py-4 text-xl font-bold rounded-lg shadow-2xl bg-accent-teal text-white hover:bg-teal-600 transition duration-300 transform hover:scale-105">
-                        <i class="fas fa-laptop-code mr-2"></i> View My Skills
-                    </a>
-                    <a href="contact.html" class="inline-block px-10 py-4 text-xl font-bold rounded-lg shadow-2xl border-2 border-white text-white hover:bg-white hover:text-primary-dark transition duration-300 transform hover:scale-105">
-                        <i class="fas fa-envelope mr-2"></i> Contact Me
-                    </a>
-                </div>
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 bg-[#050505] pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+            <div class="flex gap-8 mb-8">
+                <a href="https://github.com/Tawseef-Rather" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/tawseef-ahmad-b9b063378" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-blue-400 hover:bg-white/10 transition">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="https://www.instagram.com/tawseef___ahmad12" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-pink-500 hover:bg-white/10 transition">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
             </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER (Consistent) -->
-    <footer class="bg-primary-dark text-white text-center py-8 shadow-inner border-t-4 border-accent-teal">
-        <p class="text-sm font-light mb-4">Tawseef Ahmad Portfolio | Built with Purpose & Coffee | &copy; 2025. All rights reserved.</p>
-        <div class="flex justify-center space-x-6">
-            <a href="https://www.instagram.com/tawseef___ahmad12/?__pwa=1" target="_blank" title="Instagram Profile" class="text-2xl hover:text-accent-teal transition duration-300 transform hover:scale-125">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/tawseef-ahmad-b9b063378?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn Profile" class="text-2xl hover:text-accent-teal transition duration-300 transform hover:scale-125">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="https://github.com/Tawseef-Rather" target="_blank" title="GitHub Repositories" class="text-2xl hover:text-accent-teal transition duration-300 transform hover:scale-125">
-                <i class="fab fa-github"></i>
-            </a>
+            <p class="text-gray-500 text-sm">
+                &copy; 2025 Tawseef Ahmad. Built with <span class="text-accent">Precision</span> & <span class="text-accent2">Flow</span>.
+            </p>
         </div>
     </footer>
     
     <script>
         // Mobile Menu Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const openIcon = document.getElementById('menu-icon-open');
-            const closeIcon = document.getElementById('menu-icon-close');
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
 
-            function toggleMobileMenu() {
-                const isMenuOpen = mobileMenu.classList.contains('visible-menu');
-
-                if (isMenuOpen) {
-                    mobileMenu.classList.remove('visible-menu');
-                    mobileMenu.classList.add('hidden-menu');
-                    openIcon.classList.remove('hidden');
-                    closeIcon.classList.add('hidden');
-                } else {
-                    mobileMenu.classList.remove('hidden-menu');
-                    mobileMenu.classList.add('visible-menu');
-                    openIcon.classList.add('hidden');
-                    closeIcon.classList.remove('hidden');
-                }
+        btn.addEventListener('click', () => {
+            if (menu.classList.contains('menu-hidden')) {
+                menu.classList.remove('menu-hidden');
+                menu.classList.add('menu-visible');
+            } else {
+                menu.classList.remove('menu-visible');
+                menu.classList.add('menu-hidden');
             }
-
-            if (menuButton) {
-                menuButton.addEventListener('click', toggleMobileMenu);
-            }
-
-            if (mobileMenu) {
-                mobileMenu.classList.add('hidden-menu');
-            }
-            
-            console.log("Books Page Loaded - Ready for reading!");
         });
+        
+        console.log("Books Library Loaded");
     </script>
 </body>
 </html>
