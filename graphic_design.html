@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphic Designs - Tawseef Ahmad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#050505',
+                        light: '#ffffff',
+                        accent: '#2dd4bf', /* Teal 400 */
+                        accent2: '#818cf8', /* Indigo 400 */
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style>
+        body { background-color: #050505; color: #e2e8f0; overflow-x: hidden; }
+        .fluid-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at 15% 50%, rgba(45, 212, 191, 0.08), transparent 40%), 
+                        radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.08), transparent 40%);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        /* Mobile Menu */
+        #mobile-menu { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow: hidden; }
+        .menu-hidden { max-height: 0; opacity: 0; }
+        .menu-visible { max-height: 600px; opacity: 1; }
+    </style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-dark">
+
+    <div class="fluid-bg"></div>
+
+    <!-- NAVIGATION -->
+    <header class="fixed top-0 w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-3 group cursor-pointer">
+                    <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-white/10 group-hover:border-accent transition duration-500">
+                        <img src="my image.jpg" alt="Logo" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/50x50/0F172A/14B8A6?text=TA'">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg tracking-wide leading-none text-white group-hover:text-accent transition">TAWSEEF</span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Portfolio</span>
+                    </div>
+                </a>
+
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Home</a>
+                    <a href="skills.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Skills</a>
+                    <!-- Active State for Designs -->
+                    <a href="graphic_design.html" class="px-4 py-2 rounded-full text-sm font-medium text-white bg-white/10 border border-white/5 shadow-[0_0_10px_rgba(45,212,191,0.1)]">Designs</a>
+                    <a href="books.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Books</a>
+                    <a href="education.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Education</a>
+                    <a href="contact.html" class="ml-2 px-6 py-2 rounded-full text-sm font-bold bg-accent text-dark hover:bg-white hover:shadow-[0_0_20px_rgba(45,212,191,0.4)] transition-all">Contact</a>
+                </nav>
+
+                <button id="mobile-menu-btn" class="md:hidden text-white p-2 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden menu-hidden bg-[#0a0a0a] border-t border-white/10">
+            <div class="px-6 pt-4 pb-8 space-y-2">
+                <a href="index.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Home</a>
+                <a href="skills.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Skills</a>
+                <a href="graphic_design.html" class="block px-4 py-3 rounded-xl text-base font-medium text-white bg-white/10 border-l-4 border-accent">Designs</a>
+                <a href="books.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Books</a>
+                <a href="education.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Education</a>
+                <a href="contact.html" class="block mt-6 px-4 py-3 rounded-xl text-base font-bold text-center bg-accent text-dark">Contact Me</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+        <div class="text-center mb-16 animate-float">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-400 text-xs font-bold uppercase tracking-widest mb-6">
+                10-Day Challenge
+            </span>
+            <h1 class="text-4xl md:text-5xl font-black text-white mb-4">Design <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">Portfolio</span></h1>
+            <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+                A daily exploration of typography, layout, and brand identity using <strong>Affinity Designer</strong>.
+                <br/>Download the open source files (.af) or view the high-res renders.
+            </p>
+        </div>
+
+        <!-- This container will be populated by the JS script at the bottom -->
+        <div id="designs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Items injected via JS -->
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 bg-[#050505] pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+            <div class="flex gap-8 mb-8">
+                <a href="https://github.com/Tawseef-Rather" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/tawseef-ahmad-b9b063378" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-blue-400 hover:bg-white/10 transition">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="https://www.instagram.com/tawseef___ahmad12" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-pink-500 hover:bg-white/10 transition">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+            </div>
+            <p class="text-gray-500 text-sm text-center">
+                &copy; 2025 Tawseef Ahmad. Built with <span class="text-accent">Purpose</span> & <span class="text-accent2">Coffee</span>.
+            </p>
+        </div>
+    </footer>
+
+    <!-- REUSABLE CODE SECTION -->
+    <script>
+        // ==========================================
+        // CONFIGURATION: Add your designs here
+        // ==========================================
+        const designData = [
+            { 
+                title: "Day 1: Initial Concept", 
+                desc: "Exploration of shapes and primary colors.", 
+                // Replace these URLs with your local paths e.g., 'designs/day1.png'
+                img: "day1.png", 
+                file: "downloads/day1.af" 
+            },
+            { 
+                title: "Day 2: Typography", 
+                desc: "Focusing on kerning and font pairing.", 
+                img: "day2.png", 
+                file: "downloads/day2.af" 
+            },
+            { 
+                title: "Day 3: Layout Grid", 
+                desc: "Swiss style grid implementation.", 
+                img: "day3.png", 
+                file: "downloads/day3.af" 
+            },
+            { 
+                title: "Day 4: Brand Identity", 
+                desc: "Logo sketches and vectorization.", 
+                img: "day4.png", 
+                file: "downloads/day4.af" 
+            },
+            { 
+                title: "Day 5: Icon Set", 
+                desc: "Cohesive minimal icon pack.", 
+                img: "day5.png", 
+                file: "downloads/day5.af" 
+            },
+            { 
+                title: "Day 6: Poster Art", 
+                desc: "Event poster with texture blending.", 
+                img: "day6.png", 
+                file: "downloads/day6.af" 
+            },
+            { 
+                title: "Day 7: UI Mockup", 
+                desc: "Mobile app interface screen.", 
+                img: "day7.png", 
+                file: "downloads/day7.af" 
+            },
+            { 
+                title: "Day 8: Social Media", 
+                desc: "Instagram carousel template.", 
+                img: "day8.png", 
+                file: "downloads/day8.af" 
+            },
+            { 
+                title: "Day 9: Packaging", 
+                desc: "Product box concept art.", 
+                img: "day9.png", 
+                file: "downloads/day9.af" 
+            },
+            { 
+                title: "Day 10: Final Showcase", 
+                desc: "Composite of previous learnings.", 
+                img: "day10.png", 
+                file: "downloads/day10.af" 
+            },
+        ];
+
+        // ==========================================
+        // LOGIC: Generates the HTML (Do not edit below)
+        // ==========================================
+        const grid = document.getElementById('designs-grid');
+
+        designData.forEach(design => {
+            const card = document.createElement('div');
+            card.className = "glass-panel rounded-2xl overflow-hidden group hover:-translate-y-2 transition-transform duration-300 flex flex-col";
+            
+            card.innerHTML = `
+                <div class="relative h-56 overflow-hidden bg-gray-900">
+                    <img src="${design.img}" alt="${design.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center gap-4 backdrop-blur-sm">
+                        <a href="${design.img}" target="_blank" class="px-4 py-2 bg-white text-dark rounded-full font-bold text-sm hover:bg-gray-200 transition transform hover:scale-105">
+                            <i class="fas fa-eye mr-2"></i> View
+                        </a>
+                    </div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-xl font-bold text-white mb-2">${design.title}</h3>
+                    <p class="text-sm text-gray-400 mb-6 flex-grow">${design.desc}</p>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <a href="${design.file}" download class="flex items-center gap-2 text-xs font-bold text-accent hover:text-white transition group/link">
+                            <i class="fas fa-file-download text-lg"></i>
+                            <span>Download .AF File</span>
+                        </a>
+                        <span class="text-[10px] text-gray-500 bg-white/5 px-2 py-1 rounded border border-white/5">EDITABLE</span>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            if (menu.classList.contains('menu-hidden')) {
+                menu.classList.remove('menu-hidden');
+                menu.classList.add('menu-visible');
+            } else {
+                menu.classList.remove('menu-visible');
+                menu.classList.add('menu-hidden');
+            }
+        });
+    </script>
+</body>
+</html>
