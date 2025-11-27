@@ -1,583 +1,595 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Skills Breakdown - Professional Portfolio</title>
+    <title>Tawseef Ahmad - Skills & Proficiency</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for professional icons (used for menu icons too) -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
     <script>
-        // Custom Tailwind Configuration for Professional Colors
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'primary-dark': '#0F172A', // Deep Slate/Charcoal (Slate 900) - Modern Primary
-                        'primary-light': '#334155', // Muted Slate (Slate 700)
-                        'accent-teal': '#14B8A6', // Vibrant Teal/Emerald - NEW ACCENT
+                        dark: '#050505',
+                        light: '#ffffff',
+                        accent: '#2dd4bf', /* Teal 400 */
+                        accent2: '#818cf8', /* Indigo 400 */
+                        glass: 'rgba(255, 255, 255, 0.03)',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        sans: ['Outfit', 'sans-serif'],
                     },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-glow': 'pulseGlow 4s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(40px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        pulseGlow: {
+                            '0%': { opacity: '0.5' },
+                            '100%': { opacity: '0.8' },
+                        }
+                    }
                 },
             },
         }
     </script>
 
     <style>
-        /* Styles for the Modal Overlay and Content */
-        .modal-overlay {
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
         }
 
-        .modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
+        /* --- Fluid Gradient Background --- */
+        .fluid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(45, 212, 191, 0.08), transparent 40%), 
+                radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.08), transparent 40%);
         }
 
-        .modal-content {
-            transform: translateY(-50px);
-            opacity: 0;
-            transition: all 0.4s ease;
+        /* --- Glassmorphism --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
         }
-        
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-            opacity: 1;
+
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
-        /* --- Styles for the Responsive Navigation Menu --- */
-        #mobile-menu {
-            transition: all 0.3s ease-in-out;
-            transform-origin: top;
-        }
-        .hidden-menu {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            padding: 0;
-        }
-        .visible-menu {
-            /* Large enough to accommodate menu items */
-            max-height: 500px; 
-            opacity: 1;
-            /* Ensures padding is consistent with Tailwind py-2 (0.5rem) */
-            padding: 0.5rem 0; 
-        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2dd4bf; }
     </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-100 pt-20 leading-relaxed">
+<body class="antialiased selection:bg-accent selection:text-dark">
 
-    <!-- HEADER: Fixed, High-Contrast Navigation -->
-    <header class="fixed top-0 left-0 w-full bg-primary-dark text-white shadow-2xl z-50 border-b-4 border-accent-teal">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <div class="flex items-center">
-                <!-- Logo Section -->
-                <img src="my image.jpg" alt="Portfolio Logo" class="w-12 h-12 rounded-full object-cover border-2 border-accent-teal mr-4 transition-transform hover:rotate-3" onerror="this.onerror=null;this.src='https://placehold.co/50x50/0F172A/14B8A6?text=YN'">
-                <h1 class="text-xl font-extrabold tracking-widest uppercase">Tawseef AHmad</h1>
-            </div>
+    <!-- Ambient Background -->
+    <div class="fluid-bg"></div>
 
-            <!-- Desktop Navigation Links (Hidden on Mobile) -->
-            <nav id="desktop-nav" class="hidden md:flex space-x-2 lg:space-x-6">
-                <a href="index.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    HOME
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+    <!-- NAVIGATION -->
+    <header class="fixed top-0 w-full z-40 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 group cursor-pointer">
+                    <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-white/10 group-hover:border-accent transition duration-500">
+                        <img src="https://placehold.co/50x50/0F172A/14B8A6?text=TA" alt="Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg tracking-wide leading-none text-white group-hover:text-accent transition">TAWSEEF</span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Portfolio</span>
+                    </div>
                 </a>
-                <a href="about.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    ABOUT ME
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-                <a href="skills.html" class="text-sm font-bold p-2 rounded-lg text-accent-teal bg-white bg-opacity-10 shadow-inner transition duration-300 relative group">
-                    SKILLS
-                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accent-teal"></span>
-                </a>
-                <a href="education.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    EDUCATION
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-                
-                <a href="hobbies.html" class="text-sm font-bold p-2 rounded-lg text-accent-teal bg-white bg-opacity-10 shadow-inner transition duration-300 relative group">
-                    HOBBIES
-                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accent-teal"></span>
-                </a>
-                <a href="contact.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    CONTACT
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-            </nav>
 
-            <!-- Mobile Menu Button (Hamburger) -->
-            <div class="md:hidden flex items-center">
-                <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-accent-teal hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-teal transition duration-150 ease-in-out">
-                    <!-- Font Awesome Icons -->
-                    <i id="menu-icon-open" class="fas fa-bars h-6 w-6"></i>
-                    <i id="menu-icon-close" class="fas fa-times h-6 w-6 hidden"></i>
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Home</a>
+                    <a href="skills.html" class="px-4 py-2 rounded-full text-sm font-medium text-white bg-white/10 border border-white/5 transition-all">Skills</a>
+                    <a href="graphic_design.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Designs</a>
+                    <a href="books.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Books</a>
+                    <a href="education.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Education</a>
+                    <a href="contact.html" class="ml-2 px-6 py-2 rounded-full text-sm font-bold bg-accent text-dark hover:bg-white hover:shadow-[0_0_20px_rgba(45,212,191,0.4)] transition-all">Contact</a>
+                </nav>
+
+                <!-- Mobile Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white p-2 focus:outline-none">
+                    <i class="fas fa-bars text-xl transition-all"></i>
                 </button>
             </div>
         </div>
-        
-        <!-- Mobile Menu - Hidden by default -->
-        <nav id="mobile-menu" class="md:hidden hidden-menu bg-primary-dark/95 border-t border-accent-teal/50">
-            <div class="pt-2 pb-3 space-y-1 px-4 max-w-7xl mx-auto">
-                <a href="index.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    HOME
-                </a>
-                <a href="about.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    ABOUT ME
-                </a>
-                <a href="skills.html" class="block text-accent-teal font-bold p-2 rounded-lg bg-white bg-opacity-10 shadow-inner transition duration-300">
-                    SKILLS
-                </a>
-                <a href="education.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    EDUCATION
-                </a>
-                
-                <a href="hobbies.html" class="block text-accent-teal font-bold p-2 rounded-lg bg-white bg-opacity-10 shadow-inner transition duration-300">
-                    HOBBIES
-                </a>
-                <a href="contact.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    CONTACT
-                </a>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden max-h-0 opacity-0 overflow-hidden transition-all duration-300 ease-in-out bg-[#0a0a0a] border-t border-white/10">
+            <div class="px-6 pt-4 pb-8 space-y-2">
+                <a href="index.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Home</a>
+                <a href="skills.html" class="block px-4 py-3 rounded-xl text-base font-medium text-white bg-white/10 border-l-4 border-accent">Skills</a>
+                <a href="graphic_design.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Designs</a>
+                <a href="books.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Books</a>
+                <a href="education.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Education</a>
+                <a href="contact.html" class="block mt-6 px-4 py-3 rounded-xl text-base font-bold text-center bg-accent text-dark">Contact Me</a>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
-        <!-- Professional Introduction -->
-        <div class="text-center mb-16 p-6 bg-white rounded-2xl shadow-2xl border-t-4 border-accent-teal">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-primary-dark uppercase tracking-wide mb-4">
-                Core Competencies & Skill Breakdown
+    <!-- INTRO SECTION -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 pt-32">
+        <div class="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden text-center md:text-left">
+            <!-- Decorative BG -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+            
+            <h2 class="text-4xl md:text-5xl font-black text-white mb-6 relative z-10">
+                Core <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent2">Competencies</span>
             </h2>
-            <blockquote class="text-xl text-gray-700 italic font-medium p-4 border-l-4 border-primary-light bg-gray-50 rounded-lg max-w-4xl mx-auto">
-                "The illiterate of the 21st century will not be those who cannot read and write, but those who cannot learn, unlearn, and relearn." 
-                <footer class="mt-2 text-sm font-bold text-accent-teal">— Alvin Toffler, *Future Shock*</footer>
-            </blockquote>
-            <p class="mt-6 text-lg text-gray-600">
-                This section details the practical, application-level skills acquired through formal training, translating academic achievements into tangible, professional abilities.
+            
+            <div class="max-w-3xl relative z-10">
+                <div class="flex gap-4 mb-6 md:mb-0">
+                        <div class="hidden md:block w-1 h-16 bg-gradient-to-b from-accent to-transparent rounded-full"></div>
+                        <p class="text-lg md:text-xl text-gray-300 italic font-light leading-relaxed">
+                        "The illiterate of the 21st century will not be those who cannot read and write, but those who cannot learn, unlearn, and relearn."
+                    </p>
+                </div>
+                <p class="mt-6 text-sm text-gray-500 font-bold uppercase tracking-widest pl-5">
+                        — Alvin Toffler, <span class="text-accent">Future Shock</span>
+                </p>
+                <p class="mt-8 text-gray-400 max-w-2xl">
+                    This section details the practical, application-level skills acquired through formal training and self-directed learning. Click on any card below to view detailed breakdowns of capabilities.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS GRID -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            
+            <!-- 1. Tally -->
+            <div onclick="openModal('tally')" class="glass-panel p-6 rounded-2xl group cursor-pointer hover:bg-white/5 hover:border-accent/30 transition-all duration-300 relative flex flex-col">
+                <div class="flex justify-between items-start mb-5">
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(45,212,191,0.2)] bg-white/5 text-accent">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 border border-white/10 px-2 py-1 rounded bg-black/20 group-hover:text-accent group-hover:border-accent/30 transition-colors">FINANCE</span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors">Tally Prime & Accounting</h3>
+                <p class="text-sm text-gray-400 leading-relaxed mb-6 flex-grow">Practical mastery of full-cycle accounting, GST compliance, ledger maintenance, and generating critical financial reports using Tally Prime.</p>
+                <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-medium text-gray-500 group-hover:text-white transition-colors">
+                    <span>View Competencies</span>
+                    <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform text-accent"></i>
+                </div>
+            </div>
+
+            <!-- 2. Python -->
+            <div onclick="openModal('python')" class="glass-panel p-6 rounded-2xl group cursor-pointer hover:bg-white/5 hover:border-accent/30 transition-all duration-300 relative flex flex-col">
+                <div class="flex justify-between items-start mb-5">
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(45,212,191,0.2)] bg-white/5 text-accent">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 border border-white/10 px-2 py-1 rounded bg-black/20 group-hover:text-accent group-hover:border-accent/30 transition-colors">DEV</span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors">Python & Data Analysis</h3>
+                <p class="text-sm text-gray-400 leading-relaxed mb-6 flex-grow">Applied skills in Python for data manipulation (Pandas/NumPy) and foundational web development for building simple, utility-focused applications.</p>
+                <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-medium text-gray-500 group-hover:text-white transition-colors">
+                    <span>View Competencies</span>
+                    <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform text-accent"></i>
+                </div>
+            </div>
+
+            <!-- 3. VBA -->
+            <div onclick="openModal('vba')" class="glass-panel p-6 rounded-2xl group cursor-pointer hover:bg-white/5 hover:border-accent/30 transition-all duration-300 relative flex flex-col">
+                <div class="flex justify-between items-start mb-5">
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(45,212,191,0.2)] bg-white/5 text-accent">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 border border-white/10 px-2 py-1 rounded bg-black/20 group-hover:text-accent group-hover:border-accent/30 transition-colors">OPS</span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors">VBA & Office Automation</h3>
+                <p class="text-sm text-gray-400 leading-relaxed mb-6 flex-grow">Expertise in writing custom VBA macros for automating data ingestion, dynamic reporting, and streamlining complex workflows in MS Excel.</p>
+                <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-medium text-gray-500 group-hover:text-white transition-colors">
+                    <span>View Competencies</span>
+                    <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform text-accent"></i>
+                </div>
+            </div>
+
+            <!-- 4. Telecom -->
+            <div onclick="openModal('telecom')" class="glass-panel p-6 rounded-2xl group cursor-pointer hover:bg-white/5 hover:border-accent/30 transition-all duration-300 relative flex flex-col">
+                <div class="flex justify-between items-start mb-5">
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(45,212,191,0.2)] bg-white/5 text-accent">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 border border-white/10 px-2 py-1 rounded bg-black/20 group-hover:text-accent group-hover:border-accent/30 transition-colors">NETWORKING</span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors">Telecom & IP Networking</h3>
+                <p class="text-sm text-gray-400 leading-relaxed mb-6 flex-grow">Practical skills in basic IP networking, infrastructure installation (fiber/copper), and utilizing diagnostic tools for field service.</p>
+                <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-medium text-gray-500 group-hover:text-white transition-colors">
+                    <span>View Competencies</span>
+                    <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform text-accent"></i>
+                </div>
+            </div>
+
+            <!-- 5. C++ -->
+            <div onclick="openModal('cpp')" class="glass-panel p-6 rounded-2xl group cursor-pointer hover:bg-white/5 hover:border-accent/30 transition-all duration-300 relative flex flex-col">
+                <div class="flex justify-between items-start mb-5">
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(45,212,191,0.2)] bg-white/5 text-accent">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 border border-white/10 px-2 py-1 rounded bg-black/20 group-hover:text-accent group-hover:border-accent/30 transition-colors">CS</span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors">C++ & OOP Concepts</h3>
+                <p class="text-sm text-gray-400 leading-relaxed mb-6 flex-grow">Core understanding of Object-Oriented Programming (OOP), memory management basics, and implementing efficient algorithmic structures.</p>
+                <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-medium text-gray-500 group-hover:text-white transition-colors">
+                    <span>View Competencies</span>
+                    <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform text-accent"></i>
+                </div>
+            </div>
+
+            <!-- 6. Video -->
+            <div onclick="openModal('video')" class="glass-panel p-6 rounded-2xl group cursor-pointer hover:bg-white/5 hover:border-accent/30 transition-all duration-300 relative flex flex-col">
+                <div class="flex justify-between items-start mb-5">
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(45,212,191,0.2)] bg-white/5 text-accent">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 border border-white/10 px-2 py-1 rounded bg-black/20 group-hover:text-accent group-hover:border-accent/30 transition-colors">CREATIVE</span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors">Video Editing Concepts</h3>
+                <p class="text-sm text-gray-400 leading-relaxed mb-6 flex-grow">Foundational understanding of the post-production workflow, including trimming, color grading, audio sync, and export optimization.</p>
+                <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-medium text-gray-500 group-hover:text-white transition-colors">
+                    <span>View Competencies</span>
+                    <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform text-accent"></i>
+                </div>
+            </div>
+
+            <!-- 7. Graphic Design (REPLACED Foundational Aptitude) -->
+            <div onclick="openModal('graphic_design')" class="glass-panel p-6 rounded-2xl group cursor-pointer hover:bg-white/5 hover:border-accent/30 transition-all duration-300 relative flex flex-col border border-accent/20">
+                <div class="flex justify-between items-start mb-5">
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(45,212,191,0.2)] bg-white/5 text-accent">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-500 border border-white/10 px-2 py-1 rounded bg-black/20 group-hover:text-accent group-hover:border-accent/30 transition-colors">DESIGN</span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors">Graphic Design & Branding</h3>
+                <p class="text-sm text-gray-400 leading-relaxed mb-6 flex-grow">Creating compelling visual identities using Affinity Designer, Canva, and modern design principles. Focusing on layout and typography.</p>
+                <div class="mt-auto pt-4 border-t border-white/5 flex items-center justify-between text-xs font-medium text-gray-500 group-hover:text-white transition-colors">
+                    <span>View Competencies</span>
+                    <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform text-accent"></i>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 bg-[#050505] pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+            <div class="flex gap-8 mb-8">
+                <a href="https://github.com/Tawseef-Rather" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/tawseef-ahmad-b9b063378" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-blue-400 hover:bg-white/10 transition">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="https://www.instagram.com/tawseef___ahmad12" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-pink-500 hover:bg-white/10 transition">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+            </div>
+            <p class="text-gray-500 text-sm">
+                &copy; 2025 Tawseef Ahmad. Built with <span class="text-accent">Precision</span> & <span class="text-accent2">Flow</span>.
             </p>
         </div>
-        
-        <!-- INDIVIDUAL SKILL DOMAIN CARDS -->
-        <section class="mb-16">
-            <h3 class="text-3xl font-extrabold text-primary-dark pb-5 mb-10 border-b-4 border-primary-light flex items-center">
-                <i class="fas fa-hand-sparkles text-accent-teal text-3xl mr-4"></i>
-                Detailed Professional Skill Domains
-            </h3>
-            
-            <!-- Adjusting grid to show more individual cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                
-                <!-- Skill Card 1: Tally Prime & Financial Accounting -->
-                <div class="bg-white p-6 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-b-4 hover:border-accent-teal group flex flex-col">
-                    <div class="text-4xl text-accent-teal mb-4"><i class="fas fa-receipt"></i></div>
-                    <h4 class="text-2xl font-bold text-primary-dark mb-2">Tally Prime & Accounting</h4>
-                    <p class="text-primary-light italic mb-4 text-sm">COPA Course Focus</p>
-                    <p class="text-gray-700 mb-6 flex-grow">
-                        Practical mastery of full-cycle accounting, **GST compliance**, ledger maintenance, and generating critical **financial reports** using Tally Prime.
-                    </p>
-                    <button onclick="openModal('Tally Prime & Financial Accounting', individualSkills.tallyPrime.data)" 
-                            class="w-full bg-primary-dark text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-accent-teal hover:shadow-lg transition duration-300 transform hover:scale-[1.02]">
-                        <i class="fas fa-list-ul mr-2"></i> View Competencies
-                    </button>
-                </div>
+    </footer>
 
-                <!-- Skill Card 2: Python Programming & Data -->
-                <div class="bg-white p-6 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-b-4 hover:border-accent-teal group flex flex-col">
-                    <div class="text-4xl text-accent-teal mb-4"><i class="fab fa-python"></i></div>
-                    <h4 class="text-2xl font-bold text-primary-dark mb-2">Python & Data Analysis</h4>
-                    <p class="text-primary-light italic mb-4 text-sm">Self-Taught / Applied</p>
-                    <p class="text-gray-700 mb-6 flex-grow">
-                        Applied skills in Python for data manipulation (**Pandas/NumPy**) and foundational web development for building simple, utility-focused applications.
-                    </p>
-                    <button onclick="openModal('Python Programming & Data Analysis', individualSkills.python.data)" 
-                            class="w-full bg-primary-dark text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-accent-teal hover:shadow-lg transition duration-300 transform hover:scale-[1.02]">
-                        <i class="fas fa-list-ul mr-2"></i> View Competencies
-                    </button>
-                </div>
-
-                <!-- Skill Card 3: VBA Scripting & Office Automation -->
-                <div class="bg-white p-6 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-b-4 hover:border-accent-teal group flex flex-col">
-                    <div class="text-4xl text-accent-teal mb-4"><i class="fas fa-microchip"></i></div>
-                    <h4 class="text-2xl font-bold text-primary-dark mb-2">VBA & Office Automation</h4>
-                    <p class="text-primary-light italic mb-4 text-sm">COPA Course Focus</p>
-                    <p class="text-gray-700 mb-6 flex-grow">
-                        Expertise in writing custom **VBA macros** for automating data ingestion, dynamic reporting, and streamlining complex workflows in MS Excel.
-                    </p>
-                    <button onclick="openModal('VBA Scripting & MS Office Automation', individualSkills.vba.data)" 
-                            class="w-full bg-primary-dark text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-accent-teal hover:shadow-lg transition duration-300 transform hover:scale-[1.02]">
-                        <i class="fas fa-list-ul mr-2"></i> View Competencies
-                    </button>
-                </div>
-
-                <!-- Skill Card 4: Telecom Networking -->
-                <div class="bg-white p-6 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-b-4 hover:border-accent-teal group flex flex-col">
-                    <div class="text-4xl text-accent-teal mb-4"><i class="fas fa-satellite-dish"></i></div>
-                    <h4 class="text-2xl font-bold text-primary-dark mb-2">Telecom & IP Networking</h4>
-                    <p class="text-primary-light italic mb-4 text-sm">PMKVY Course Focus</p>
-                    <p class="text-gray-700 mb-6 flex-grow">
-                        Practical skills in basic **IP networking**, infrastructure installation (fiber/copper), and utilizing diagnostic tools for customer-focused field service delivery.
-                    </p>
-                    <button onclick="openModal('Telecom Field Service & IP Networking', individualSkills.telecomNetworking.data)" 
-                            class="w-full bg-primary-dark text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-accent-teal hover:shadow-lg transition duration-300 transform hover:scale-[1.02]">
-                        <i class="fas fa-list-ul mr-2"></i> View Competencies
-                    </button>
-                </div>
-
-                <!-- Skill Card 5: C++ & Algorithms -->
-                <div class="bg-white p-6 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-b-4 hover:border-accent-teal group flex flex-col">
-                    <div class="text-4xl text-accent-teal mb-4"><i class="fas fa-cogs"></i></div>
-                    <h4 class="text-2xl font-bold text-primary-dark mb-2">C++ & OOP Concepts</h4>
-                    <p class="text-primary-light italic mb-4 text-sm">COPA Course Focus</p>
-                    <p class="text-gray-700 mb-6 flex-grow">
-                        Core understanding of **Object-Oriented Programming (OOP)**, memory management basics, and implementing efficient algorithmic structures.
-                    </p>
-                    <button onclick="openModal('C++ Programming & Algorithms', individualSkills.cpp.data)" 
-                            class="w-full bg-primary-dark text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-accent-teal hover:shadow-lg transition duration-300 transform hover:scale-[1.02]">
-                        <i class="fas fa-list-ul mr-2"></i> View Competencies
-                    </button>
-                </div>
-
-                <!-- Skill Card 6: Video Editing Fundamentals -->
-                <div class="bg-white p-6 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-b-4 hover:border-accent-teal group flex flex-col">
-                    <div class="text-4xl text-accent-teal mb-4"><i class="fas fa-film"></i></div>
-                    <h4 class="text-2xl font-bold text-primary-dark mb-2">Video Editing Concepts</h4>
-                    <p class="text-primary-light italic mb-4 text-sm">Self-Taught / Applied</p>
-                    <p class="text-gray-700 mb-6 flex-grow">
-                        Foundational understanding of the post-production workflow, including **trimming**, **color grading**, audio sync, and export optimization.
-                    </p>
-                    <button onclick="openModal('Video Editing Fundamentals (Conceptual)', individualSkills.videoEditing.data)" 
-                            class="w-full bg-primary-dark text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-accent-teal hover:shadow-lg transition duration-300 transform hover:scale-[1.02]">
-                        <i class="fas fa-list-ul mr-2"></i> View Competencies
-                    </button>
-                </div>
-                
-                <!-- Skill Card 7: Foundational Aptitude (Soft Skills) -->
-                <div class="bg-white p-6 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-b-4 hover:border-accent-teal group flex flex-col">
-                    <div class="text-4xl text-accent-teal mb-4"><i class="fas fa-brain"></i></div>
-                    <h4 class="text-2xl font-bold text-primary-dark mb-2">Foundational Aptitude</h4>
-                    <p class="text-primary-light italic mb-4 text-sm">Academic & Cognitive</p>
-                    <p class="text-gray-700 mb-6 flex-grow">
-                        Core **analytical reasoning**, structured problem diagnosis, and **professional communication** techniques essential for project execution.
-                    </p>
-                    <button onclick="openModal('Foundational & Cognitive Aptitude', individualSkills.foundationalAptitude.data)" 
-                            class="w-full bg-primary-dark text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-accent-teal hover:shadow-lg transition duration-300 transform hover:scale-[1.02]">
-                        <i class="fas fa-list-ul mr-2"></i> View Competencies
-                    </button>
-                </div>
-                
-            </div>
-        </section>
-
-    </main>
-    
-    <!-- DETAILED SKILLS MODAL -->
-    <div id="skillModal" class="modal-overlay fixed inset-0 bg-primary-dark bg-opacity-90 flex items-center justify-center p-4 z-[100]">
-        <div class="modal-content bg-white w-full max-w-4xl max-h-[90vh] rounded-xl shadow-3xl overflow-y-auto">
+    <!-- MODAL OVERLAY -->
+    <div id="modal-overlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity duration-300 hidden" onclick="closeModal()">
+        <div id="modal-container" class="w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-2xl transform transition-all duration-300 animate-slide-up" onclick="event.stopPropagation()">
             
             <!-- Modal Header -->
-            <div class="sticky top-0 bg-primary-dark text-white p-6 rounded-t-xl flex justify-between items-center border-b-4 border-accent-teal">
-                <h3 id="modalTitle" class="text-3xl font-extrabold text-accent-teal">Detailed Competencies</h3>
-                <button onclick="closeModal()" class="text-white text-3xl hover:text-red-500 transition">
-                    <i class="fas fa-times-circle"></i>
+            <div class="sticky top-0 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/10 p-6 flex justify-between items-center z-10">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent">
+                         <i id="modal-icon" class="fas fa-cube text-xl"></i>
+                    </div>
+                    <h3 id="modal-title" class="text-2xl font-bold text-white leading-none">
+                        Skill Title
+                    </h3>
+                </div>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10">
+                    <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
 
-            <!-- Modal Body (Content) -->
-            <div id="modalBody" class="p-8">
-                <!-- Content generated by JavaScript -->
+            <!-- Modal Body -->
+            <div id="modal-body" class="p-8 space-y-8">
+                <!-- Content injected via JS -->
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="p-6 border-t border-white/10 flex justify-end">
+                <button onclick="closeModal()" class="px-6 py-2 rounded-full border border-white/10 hover:bg-white/10 text-white text-sm transition">
+                    Close Details
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-primary-dark text-white text-center py-8 mt-12 shadow-inner border-t-4 border-accent-teal">
-        <p class="text-sm font-light mb-4">Tawseef Ahmad Portfolio | Built with Professionalism & Coffee | &copy; 2025. All rights reserved.</p>
-        <div class="flex justify-center space-x-6">
-            <!-- Social Links -->
-            <a href="https://www.instagram.com/tawseef___ahmad12/?__pwa=1" target="_blank" title="Instagram Profile" class="text-2xl hover:text-accent-teal transition duration-300 transform hover:scale-125">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/tawseef-ahmad-b9b063378?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn Profile" class="text-2xl hover:text-accent-teal transition duration-300 transform hover:scale-125">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="https://github.com/Tawseef-Rather" target="_blank" title="GitHub Repositories" class="text-2xl hover:text-accent-teal transition duration-300 transform hover:scale-125">
-                <i class="fab fa-github"></i>
-            </a>
-        </div>
-    </footer>
-    
     <script>
-        // --- DETAILED SKILL DATA REFACTORED BY INDIVIDUAL DOMAIN (EXISTING) ---
-        const individualSkills = {
-            // 1. Core Financial/Accounting
-            tallyPrime: {
-                title: "Tally Prime & Financial Accounting",
+        // --- DATA ---
+        const skillsData = {
+            tally: {
+                title: "Tally Prime & Accounting",
                 icon: "receipt",
-                data: [
-                    { 
-                        category: "Accounting Operations & Vouchers", 
-                        icon: "cash-register", 
-                        skills: [
+                details: [
+                    {
+                        category: "Accounting Operations & Vouchers",
+                        icon: "cash-register",
+                        items: [
                             "**Purchase & Sales Entries:** Accurate recording of all inbound and outbound transactions, including GST classification.",
                             "**Voucher Management:** Creation and modification of various vouchers (Payment, Receipt, Journal, Contra).",
                             "**Reconciliation:** Basic bank and ledger reconciliation procedures."
-                        ] 
+                        ]
                     },
-                    { 
-                        category: "Reporting & Compliance (GST)", 
-                        icon: "file-invoice-dollar", 
-                        skills: [
+                    {
+                        category: "Reporting & Compliance (GST)",
+                        icon: "file-invoice-dollar",
+                        items: [
                             "**Financial Statement Generation:** Ability to generate Profit & Loss statements, Trial Balances, and Balance Sheets.",
                             "**Inventory Management:** Stock group/item creation, movement recording, and valuation methods.",
                             "**Tax Compliance:** Understanding of basic GST reporting requirements and entry impacts."
-                        ] 
-                    },
-                ]
-            },
-            // 2. Programming
-            python: {
-                title: "Python Programming & Data Analysis",
-                icon: "python", 
-                data: [
-                    { 
-                        category: "Data Analysis & ETL (Pandas/NumPy)", 
-                        icon: "table", 
-                        skills: [
-                            "Data ingestion, cleaning, and transformation using the **Pandas** library for data frames.",
-                            "Numerical operations and array handling using **NumPy** for scientific computing.",
-                            "Basic data visualization for trend identification and exploratory analysis."
-                        ] 
-                    },
-                    { 
-                        category: "Web Development Fundamentals", 
-                        icon: "globe", 
-                        skills: [
-                            "Experience with micro-frameworks like **Flask** for building simple REST APIs.",
-                            "Understanding of HTTP methods (GET, POST) and web request handling."
-                        ] 
-                    },
-                ]
-            },
-            // 3. Automation
-            vba: {
-                title: "VBA Scripting & MS Office Automation",
-                icon: "microchip",
-                data: [
-                    { 
-                        category: "Macro Development", 
-                        icon: "robot", 
-                        skills: [
-                            "Developing custom **VBA macros** for MS Excel (data cleanup, reporting loops, generating PDF/email reports).",
-                            "Automating repetitive tasks across the Office suite (Excel, Word) to save time.",
-                            "Designing custom input interfaces using user forms (UserForms) for data entry."
-                        ] 
-                    },
-                    { 
-                        category: "Advanced MS Excel & Data", 
-                        icon: "calculator", 
-                        skills: [
-                            "Mastery of advanced functions (VLOOKUP, INDEX/MATCH), **Pivot Tables**, and data consolidation.",
-                            "Building dynamic **financial models** and interactive dashboards.",
-                            "Using Power Query concepts for external data connection and manipulation."
-                        ] 
-                    }
-                ]
-            },
-            // 4. Telecom/Networking
-            telecomNetworking: {
-                title: "Telecom Field Service & IP Networking",
-                icon: "satellite-dish",
-                data: [
-                    { 
-                        category: "IP Networking Fundamentals", 
-                        icon: "network-wired", 
-                        skills: [
-                            "**Protocol Knowledge:** Understanding of TCP/IP stack, basic DHCP, and DNS principles.",
-                            "**Network Setup:** Configuration of standard customer premises equipment (CPE) such as modems and routers.",
-                            "**Troubleshooting:** Identifying connectivity issues (Layer 1-3) using `ping` and `tracert` commands."
-                        ] 
-                    },
-                    { 
-                        category: "Field Installation & Maintenance", 
-                        icon: "tools", 
-                        skills: [
-                            "**Cable Management:** Proper handling, routing, and termination of both copper and fiber optic cables.",
-                            "**Testing Procedures:** Using multimeters and basic signal testers to measure line quality and identify faults.",
-                            "**Safety Compliance:** Strict adherence to safety protocols for working at heights and handling electrical components."
-                        ] 
-                    },
-                ]
-            },
-            // 5. C++
-            cpp: {
-                title: "C++ Programming & Algorithms",
-                icon: "cogs",
-                data: [
-                    { 
-                        category: "Programming Concepts", 
-                        icon: "terminal", 
-                        skills: [
-                            "Strong grasp of Object-Oriented Programming (OOP) concepts (Inheritance, Polymorphism).",
-                            "Understanding of conditional logic, iterative structures, and memory management basics.",
-                            "Basic ability to design and implement efficient algorithms for routine data processing tasks."
-                        ] 
-                    }
-                ]
-            },
-            // 6. Video Editing
-            videoEditing: {
-                title: "Video Editing Fundamentals (Conceptual)",
-                icon: "film",
-                data: [
-                    {
-                        category: "Post-Production Workflow", 
-                        icon: "cut",
-                        skills: [
-                            "**Trimming & Cutting:** Efficiently removing unwanted footage and splicing clips for flow and rhythm.",
-                            "**Color Correction/Grading:** Basic understanding of white balance, exposure, and applying LUTs/presets for aesthetic enhancement.",
-                            "**Audio Sync & Cleanup:** Synchronizing external audio and reducing background noise for clear dialogue.",
-                            "**Export Settings:** Optimizing video exports for different platforms (web, social media, archival) based on codecs and bitrates."
                         ]
                     }
                 ]
             },
-            // 7. Foundational/Soft Skills (From Higher Secondary)
-            foundationalAptitude: {
-                title: "Foundational & Cognitive Aptitude",
-                icon: "brain",
-                data: [
-                    { 
-                        category: "Cognitive Aptitude", 
-                        icon: "brain", 
-                        skills: [
-                            "Advanced Critical Reading and Synthesis of complex texts.", 
-                            "Structured Analytical Reasoning for identifying root causes and problem diagnosis.", 
-                            "Effective Time Management and Study Discipline (e.g., adhering to strict deadlines)."
-                        ] 
+            python: {
+                title: "Python & Data Analysis",
+                icon: "python", // uses fab
+                isFab: true,
+                details: [
+                    {
+                        category: "Data Analysis & ETL (Pandas/NumPy)",
+                        icon: "table",
+                        items: [
+                            "Data ingestion, cleaning, and transformation using the **Pandas** library for data frames.",
+                            "Numerical operations and array handling using **NumPy** for scientific computing.",
+                            "Basic data visualization for trend identification and exploratory analysis."
+                        ]
                     },
-                    { 
-                        category: "Communication & Writing", 
-                        icon: "pen-nib", 
-                        skills: [
-                            "Formal Report Writing and documentation (adhering to academic and professional standards).", 
-                            "Clear and concise explanation of complex concepts (verbal and written).",
-                            "Professional email and written documentation practices."
-                        ] 
+                    {
+                        category: "Web Development Fundamentals",
+                        icon: "globe",
+                        items: [
+                            "Experience with micro-frameworks like **Flask** for building simple REST APIs.",
+                            "Understanding of HTTP methods (GET, POST) and web request handling."
+                        ]
+                    }
+                ]
+            },
+            vba: {
+                title: "VBA & Office Automation",
+                icon: "microchip",
+                details: [
+                    {
+                        category: "Macro Development",
+                        icon: "robot",
+                        items: [
+                            "Developing custom **VBA macros** for MS Excel (data cleanup, reporting loops, generating PDF/email reports).",
+                            "Automating repetitive tasks across the Office suite (Excel, Word) to save time.",
+                            "Designing custom input interfaces using user forms (UserForms) for data entry."
+                        ]
+                    },
+                    {
+                        category: "Advanced MS Excel & Data",
+                        icon: "calculator",
+                        items: [
+                            "Mastery of advanced functions (VLOOKUP, INDEX/MATCH), **Pivot Tables**, and data consolidation.",
+                            "Building dynamic **financial models** and interactive dashboards.",
+                            "Using Power Query concepts for external data connection and manipulation."
+                        ]
+                    }
+                ]
+            },
+            telecom: {
+                title: "Telecom & IP Networking",
+                icon: "satellite-dish",
+                details: [
+                    {
+                        category: "IP Networking Fundamentals",
+                        icon: "network-wired",
+                        items: [
+                            "**Protocol Knowledge:** Understanding of TCP/IP stack, basic DHCP, and DNS principles.",
+                            "**Network Setup:** Configuration of standard customer premises equipment (CPE) such as modems and routers.",
+                            "**Troubleshooting:** Identifying connectivity issues (Layer 1-3) using `ping` and `tracert` commands."
+                        ]
+                    },
+                    {
+                        category: "Field Installation & Maintenance",
+                        icon: "tools",
+                        items: [
+                            "**Cable Management:** Proper handling, routing, and termination of both copper and fiber optic cables.",
+                            "**Testing Procedures:** Using multimeters and basic signal testers to measure line quality and identify faults.",
+                            "**Safety Compliance:** Strict adherence to safety protocols for working at heights and handling electrical components."
+                        ]
+                    }
+                ]
+            },
+            cpp: {
+                title: "C++ & OOP Concepts",
+                icon: "cogs",
+                details: [
+                    {
+                        category: "Programming Concepts",
+                        icon: "terminal",
+                        items: [
+                            "Strong grasp of Object-Oriented Programming (OOP) concepts (Inheritance, Polymorphism).",
+                            "Understanding of conditional logic, iterative structures, and memory management basics.",
+                            "Basic ability to design and implement efficient algorithms for routine data processing tasks."
+                        ]
+                    }
+                ]
+            },
+            video: {
+                title: "Video Editing Concepts",
+                icon: "film",
+                details: [
+                    {
+                        category: "Post-Production Workflow",
+                        icon: "cut",
+                        items: [
+                            "**Trimming & Cutting:** Efficiently removing unwanted footage and splicing clips for flow and rhythm.",
+                            "**Color Correction/Grading:** Basic understanding of white balance, exposure, and applying LUTs/presets.",
+                            "**Audio Sync & Cleanup:** Synchronizing external audio and reducing background noise.",
+                            "**Export Settings:** Optimizing video exports for different platforms based on codecs and bitrates."
+                        ]
+                    }
+                ]
+            },
+            graphic_design: {
+                title: "Graphic Design & Branding",
+                icon: "palette",
+                details: [
+                    {
+                        category: "Design Software Proficiency",
+                        icon: "laptop-code",
+                        items: [
+                            "**Affinity Designer:** Vector illustration, complex shape operations, and scalable asset creation.",
+                            "**Canva:** Rapid content creation for social media, consistent branding templates, and layout design.",
+                            "**File Management:** Handling various formats (SVG, PNG, EPS) and understanding print vs. web requirements."
+                        ]
+                    },
+                    {
+                        category: "Visual Principles",
+                        icon: "eye",
+                        items: [
+                            "**Typography & Layout:** Hierarchy, font pairing, and spacing (kerning/leading) for readability.",
+                            "**Color Theory:** Palette selection, contrast ratios for accessibility, and emotional impact.",
+                            "**Branding:** Logo design and maintaining visual consistency across different media."
+                        ]
                     }
                 ]
             }
         };
 
-        // --- MODAL FUNCTIONS (EXISTING) ---
+        // --- MOBILE MENU LOGIC ---
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = menuBtn.querySelector('i');
 
-        /**
-         * Generates the detailed skill list HTML content for the modal.
-         * @param {Array} data - The array of skill objects for the selected domain.
-         * @returns {string} The generated HTML.
-         */
-        function generateModalContent(data) {
-            let html = '';
+        menuBtn.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('max-h-0')) {
+                // Open
+                mobileMenu.classList.remove('max-h-0', 'opacity-0');
+                mobileMenu.classList.add('max-h-[600px]', 'opacity-100');
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                // Close
+                mobileMenu.classList.add('max-h-0', 'opacity-0');
+                mobileMenu.classList.remove('max-h-[600px]', 'opacity-100');
+                menuIcon.classList.add('fa-bars');
+                menuIcon.classList.remove('fa-times');
+            }
+        });
+
+        // --- MODAL LOGIC ---
+        function openModal(id) {
+            const data = skillsData[id];
+            if (!data) return;
+
+            // Set Header
+            document.getElementById('modal-title').textContent = data.title;
+            const iconElem = document.getElementById('modal-icon');
             
-            data.forEach(item => {
-                html += `
-                    <div class="mb-8 border-l-4 border-accent-teal pl-4 shadow-sm p-3 bg-gray-50 rounded-lg">
-                        <h4 class="text-xl font-extrabold text-primary-dark flex items-center mb-3">
-                            <i class="fas fa-${item.icon} text-accent-teal mr-3"></i> ${item.category}
-                        </h4>
-                        <ul class="list-disc ml-6 space-y-2 text-gray-700">
-                `;
-                item.skills.forEach(skill => {
-                    // Ensures that items that were explicitly bolded in the data remain bolded
-                    html += `<li class="text-base leading-snug">${skill}</li>`;
+            // Handle FAB icons vs FAS icons
+            if (data.isFab) {
+                iconElem.className = `fab fa-${data.icon} text-xl`;
+            } else {
+                iconElem.className = `fas fa-${data.icon} text-xl`;
+            }
+
+            // Build Body
+            const body = document.getElementById('modal-body');
+            body.innerHTML = ''; // Clear previous
+
+            // Add Intro Text
+            body.innerHTML += `
+                <p class="text-gray-400 italic border-l-2 border-accent/50 pl-4">
+                    Detailed breakdown of competencies and practical applications.
+                </p>
+            `;
+
+            // Loop through sections
+            data.details.forEach(section => {
+                let listItems = '';
+                section.items.forEach(item => {
+                    // Format bold text **text** to <span>
+                    const formattedItem = item.replace(/\*\*(.*?)\*\*/g, '<span class="text-white font-semibold">$1</span>');
+                    listItems += `
+                        <li class="flex items-start gap-3 text-gray-300 text-sm leading-relaxed group">
+                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/50 group-hover:bg-accent transition-colors shrink-0"></span>
+                            <span>${formattedItem}</span>
+                        </li>
+                    `;
                 });
-                html += `
+
+                const sectionHtml = `
+                    <div class="bg-white/5 rounded-xl p-6 border border-white/5 hover:border-white/10 transition-colors">
+                        <h4 class="text-lg font-bold text-accent mb-4 flex items-center gap-3">
+                            <i class="fas fa-${section.icon}"></i>
+                            ${section.category}
+                        </h4>
+                        <ul class="space-y-3">
+                            ${listItems}
                         </ul>
                     </div>
                 `;
+                body.innerHTML += sectionHtml;
             });
-            
-            return html;
+
+            // Show Modal
+            const overlay = document.getElementById('modal-overlay');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
 
-        /**
-         * Opens the modal with specific content.
-         * @param {string} title - The title of the education/course.
-         * @param {Array} skillData - The array of skill objects.
-         */
-        function openModal(title, skillData) {
-            const modal = document.getElementById('skillModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalBody = document.getElementById('modalBody');
-
-            modalTitle.textContent = title + ": Detailed Breakdown";
-            modalBody.innerHTML = generateModalContent(skillData);
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling on the main body
-        }
-
-        /**
-         * Closes the modal.
-         */
         function closeModal() {
-            const modal = document.getElementById('skillModal');
-            modal.classList.remove('active');
+            const overlay = document.getElementById('modal-overlay');
+            overlay.classList.add('hidden');
             document.body.style.overflow = ''; // Restore scrolling
         }
 
-        // Close modal when clicking outside of the content box
-        document.getElementById('skillModal').addEventListener('click', function(e) {
-            if (e.target === this) {
+        // Close on ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
                 closeModal();
             }
         });
-
-        // --- NAVIGATION FUNCTIONS (NEW) ---
-
-        const menuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const openIcon = document.getElementById('menu-icon-open');
-        const closeIcon = document.getElementById('menu-icon-close');
-
-        /**
-         * Toggles the visibility of the mobile menu and switches the hamburger/close icon.
-         */
-        function toggleMobileMenu() {
-            // Toggle visibility utility class
-            const isMenuOpen = mobileMenu.classList.contains('visible-menu');
-
-            if (isMenuOpen) {
-                // Close the menu
-                mobileMenu.classList.remove('visible-menu');
-                mobileMenu.classList.add('hidden-menu');
-                // Toggle icons
-                openIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            } else {
-                // Open the menu
-                mobileMenu.classList.remove('hidden-menu');
-                mobileMenu.classList.add('visible-menu');
-                // Toggle icons
-                openIcon.classList.add('hidden');
-                closeIcon.classList.remove('hidden');
-            }
-        }
-
-        // Attach the event listener to the menu button
-        menuButton.addEventListener('click', toggleMobileMenu);
-
-        // Initial check to apply the initial hidden state on load
-        window.addEventListener('load', () => {
-            mobileMenu.classList.add('hidden-menu');
-        });
-        
-        console.log("Tawseef Ahmad");
     </script>
 </body>
 </html>
