@@ -1,35 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tawseef Ahmad - Professional Portfolio</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for professional icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
     <script>
-        // Custom Tailwind Configuration for Professional Colors (Consistent across portfolio)
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'primary-dark': '#0F172A', // Deep Slate/Charcoal (Slate 900)
-                        'primary-light': '#334155', // Muted Slate (Slate 700)
-                        'accent-teal': '#14B8A6', // Vibrant Teal/Emerald
+                        dark: '#050505',
+                        light: '#ffffff',
+                        accent: '#2dd4bf', /* Teal 400 */
+                        accent2: '#818cf8', /* Indigo 400 */
+                        glass: 'rgba(255, 255, 255, 0.03)',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
+                        sans: ['Outfit', 'sans-serif'],
                     },
                     animation: {
-                        fadeInUp: 'fadeInUp 0.8s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-glow': 'pulseGlow 4s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(40px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        pulseGlow: {
+                            '0%': { opacity: '0.5' },
+                            '100%': { opacity: '0.8' },
+                        }
                     }
                 },
             },
@@ -37,329 +50,633 @@
     </script>
 
     <style>
-        /* Styles for the Responsive Navigation Menu */
-        #mobile-menu {
-            transition: all 0.3s ease-in-out;
-            transform-origin: top;
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
         }
-        .hidden-menu {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            padding: 0;
+
+        /* --- Fluid Gradient Background --- */
+        .fluid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(45, 212, 191, 0.08), transparent 40%), 
+                radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.08), transparent 40%);
         }
-        .visible-menu {
-            max-height: 500px; 
-            opacity: 1;
-            padding: 0.5rem 0; 
+
+        /* --- Glassmorphism --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
         }
-        /* Style for the Hero Section background pattern (more subtle) */
-        .hero-bg {
-            background-color: #f8fafc; /* Slate 50 */
-            background-image: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 10%, transparent 10%), 
-                              linear-gradient(45deg, rgba(15, 23, 42, 0.05) 10%, transparent 10%);
-            background-size: 20px 20px;
+
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        /* Ensure smooth scrolling for internal links */
-        html {
-            scroll-behavior: smooth;
+
+        /* --- Typography & Gradients --- */
+        .text-gradient {
+            background: linear-gradient(135deg, #2dd4bf, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #2dd4bf, transparent);
+            border-radius: 2px;
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2dd4bf; }
+
+        /* Mobile Menu */
+        #mobile-menu { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow: hidden; }
+        .menu-hidden { max-height: 0; opacity: 0; }
+        .menu-visible { max-height: 600px; opacity: 1; }
     </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-100 pt-20 leading-relaxed">
+<body class="antialiased selection:bg-accent selection:text-dark">
 
-    <!-- HEADER: Fixed, High-Contrast Navigation (Consistent) -->
-    <header class="fixed top-0 left-0 w-full bg-primary-dark text-white shadow-2xl z-50 border-b-4 border-accent-teal">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <div class="flex items-center">
-                <!-- Logo Section -->
-                <img src="my image.jpg" alt="Portfolio Logo" class="w-12 h-12 rounded-full object-cover border-2 border-accent-teal mr-4 transition-transform hover:rotate-3" onerror="this.onerror=null;this.src='https://placehold.co/50x50/0F172A/14B8A6?text=YN'">
-                <h1 class="text-xl font-extrabold tracking-widest uppercase">Tawseef AHmad</h1>
-            </div>
+    <!-- Ambient Background -->
+    <div class="fluid-bg"></div>
 
-            <!-- Desktop Navigation Links -->
-            <nav id="desktop-nav" class="hidden md:flex space-x-2 lg:space-x-6">
-                <!-- HOME is the active link for this page -->
-                <a href="index.html" class="text-sm font-bold p-2 rounded-lg text-accent-teal bg-white bg-opacity-10 shadow-inner transition duration-300 relative group">
-                    HOME
-                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accent-teal"></span>
+    <!-- NAVIGATION -->
+    <header class="fixed top-0 w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 group cursor-pointer">
+                    <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-white/10 group-hover:border-accent transition duration-500">
+                        <img src="my image.jpg" alt="Logo" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/50x50/0F172A/14B8A6?text=TA'">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg tracking-wide leading-none text-white group-hover:text-accent transition">TAWSEEF</span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Portfolio</span>
+                    </div>
                 </a>
-                <a href="about.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    ABOUT ME
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-                <a href="skills.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    SKILLS
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-                <a href="books.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-    MY BOOKS
-    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-</a>
-                <a href="education.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    EDUCATION
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-                <a href="hobbies.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    HOBBIES
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-                <a href="contact.html" class="text-sm font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300 relative group">
-                    CONTACT
-                    <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent-teal transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
-                </a>
-            </nav>
 
-            <!-- Mobile Menu Button (Hamburger) -->
-            <div class="md:hidden flex items-center">
-                <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-accent-teal hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-teal transition duration-150 ease-in-out">
-                    <i id="menu-icon-open" class="fas fa-bars h-6 w-6"></i>
-                    <i id="menu-icon-close" class="fas fa-times h-6 w-6 hidden"></i>
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium text-white bg-white/10 border border-white/5 transition-all">Home</a>
+                    <a href="skills.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Skills</a>
+                    <a href="graphic_design.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Designs</a>
+                    <a href="books.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Books</a>
+                    <a href="education.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Education</a>
+                    <a href="contact.html" class="ml-2 px-6 py-2 rounded-full text-sm font-bold bg-accent text-dark hover:bg-white hover:shadow-[0_0_20px_rgba(45,212,191,0.4)] transition-all">Contact</a>
+                </nav>
+
+                <!-- Mobile Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white p-2 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
-        
-        <!-- Mobile Menu - Hidden by default -->
-        <nav id="mobile-menu" class="md:hidden hidden-menu bg-primary-dark/95 border-t border-accent-teal/50">
-            <div class="pt-2 pb-3 space-y-1 px-4 max-w-7xl mx-auto">
-                <a href="index.html" class="block text-accent-teal font-bold p-2 rounded-lg bg-white bg-opacity-10 shadow-inner transition duration-300">
-                    HOME
-                </a>
-                <a href="about.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    ABOUT ME
-                </a>
-                <a href="skills.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    SKILLS
-                </a>
-                <a href="books.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-    MY BOOKS
-</a>
-                <a href="education.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    EDUCATION
-                </a>
-                <a href="hobbies.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    HOBBIES
-                </a>
-                <a href="contact.html" class="block text-white font-medium p-2 rounded-lg hover:bg-gray-700 hover:text-accent-teal transition duration-300">
-                    CONTACT
-                </a>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden menu-hidden bg-[#0a0a0a] border-t border-white/10">
+            <div class="px-6 pt-4 pb-8 space-y-2">
+                <a href="index.html" class="block px-4 py-3 rounded-xl text-base font-medium text-white bg-white/10 border-l-4 border-accent">Home</a>
+                <a href="skills.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Skills</a>
+                <a href="graphic_design.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Designs</a>
+                <a href="books.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Books</a>
+                <a href="education.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5">Education</a>
+                <a href="contact.html" class="block mt-6 px-4 py-3 rounded-xl text-base font-bold text-center bg-accent text-dark">Contact Me</a>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="w-full">
-
-        <!-- 1. HERO SECTION: The main attraction -->
-        <section id="hero" class="hero-bg text-primary-dark pt-16 pb-20 md:pt-24 md:pb-32 flex items-center min-h-[90vh] -mt-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
-                
-                <!-- Text Content -->
-                <div class="lg:w-1/2 text-center lg:text-left space-y-6 animate-fadeInUp" style="animation-delay: 0.1s;">
-                    <p class="text-xl text-accent-teal font-semibold tracking-wider uppercase">Hello, I'm</p>
-                    <h2 class="text-6xl md:text-8xl font-black text-primary-dark leading-tight">
-                        Tawseef <span class="text-accent-teal">Ahmad</span>
+    <!-- 1. HERO SECTION (Identity) -->
+    <section class="relative min-h-[90vh] flex items-center pt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
+                <!-- Text -->
+                <div class="lg:w-1/2 text-center lg:text-left z-10">
+                    <div class="animate-slide-up" style="animation-delay: 0.1s;">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-widest mb-6">
+                            <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span> Portfolio Overview
+                        </span>
+                    </div>
+                    
+                    <h1 class="animate-slide-up text-5xl md:text-7xl font-black text-white leading-[1.1] mb-6" style="animation-delay: 0.2s;">
+                        Tawseef <span class="text-gradient">Ahmad</span>
+                    </h1>
+                    
+                    <h2 class="animate-slide-up text-xl md:text-2xl font-light text-gray-300 mb-8" style="animation-delay: 0.3s;">
+                        Merging <span class="text-white font-medium">Logic</span> with <span class="text-white font-medium">Creativity</span>.
                     </h2>
-                    <p class="text-3xl font-medium text-gray-700">
-                        A <span class="font-extrabold text-primary-dark">Python Developer</span> | Specializing Accounting , Data Handling & Automation
-                    </p>
-                    <p class="text-lg text-gray-600 max-w-lg mx-auto lg:mx-0 border-l-4 border-accent-teal pl-4 italic">
-                        "A Python Developer to automate tasks | Tally Operator to perfrom Accounting | Video editor , using softwares like Adobe Premiere | Data Handler, using Python and softwares like Power BI to handle and Analyze large Data"
+
+                    <p class="animate-slide-up text-base md:text-lg text-gray-400 leading-relaxed mb-10 max-w-2xl lg:mx-0 mx-auto border-l-2 border-accent/30 pl-6 italic" style="animation-delay: 0.4s;">
+                        "A Python Developer automating the complex, an Accountant ensuring precision, and a Designer crafting visual narratives. This portfolio is the sum of those parts."
                     </p>
 
-                    <!-- CTA Buttons -->
-                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
-                        <a href="skills.html" class="px-8 py-3 text-lg font-bold rounded-lg shadow-xl bg-accent-teal text-white hover:bg-teal-600 transition duration-300 transform hover:scale-[1.05] ring-2 ring-accent-teal">
-                            <i class="fas fa-laptop-code mr-2"></i> View Full Skills
+                    <div class="animate-slide-up flex flex-col sm:flex-row gap-4 justify-center lg:justify-start" style="animation-delay: 0.5s;">
+                        <a href="#about" class="px-8 py-4 bg-white text-dark font-bold rounded-full transition-all hover:bg-gray-200">
+                            Explore Full Profile
                         </a>
-                        <a href="contact.html" class="px-8 py-3 text-lg font-bold rounded-lg shadow-xl border-2 border-primary-dark text-primary-dark bg-white hover:bg-gray-200 transition duration-300 transform hover:scale-[1.05]">
-                            <i class="fas fa-handshake mr-2"></i> Discuss a Project
+                        <a href="contact.html" class="px-8 py-4 rounded-full border border-white/20 text-white font-bold hover:bg-white/5 transition-all">
+                            Hire Me
                         </a>
                     </div>
                 </div>
 
-                <!-- Profile Image -->
-                <div class="lg:w-1/2 flex justify-center lg:justify-end">
-                    <div class="relative p-4 bg-white/50 rounded-full shadow-2xl backdrop-blur-md animate-fadeInUp" style="animation-delay: 0.3s;">
-                        <img src="my image2.jpg" alt="Tawseef Ahmad Professional Photo" 
-                             class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-8 border-white ring-8 ring-accent-teal/50 transform hover:scale-105 transition-transform duration-500"
-                             onerror="this.onerror=null;this.src='https://placehold.co/320x320/0F172A/14B8A6?text=Profile+Image'">
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- 2. CORE COMPETENCIES / DIGITAL TOOLKIT (CUSTOMIZE THIS SECTION) -->
-        <section id="toolkit" class="py-16 md:py-24 bg-primary-dark text-white shadow-inner">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h3 class="text-3xl md:text-4xl font-extrabold text-center mb-4">
-                    The <span class="text-accent-teal">Digital Toolkit</span>
-                </h3>
-                <p class="text-center text-lg text-gray-400 mb-12 max-w-3xl mx-auto">
-                    My expertise is based on understanding Core Concept:
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    
-                    <!-- Frontend Excellence -->
-                    <div class="p-8 rounded-xl bg-primary-light border border-accent-teal/50 shadow-xl transition duration-300 hover:shadow-accent-teal/30 hover:scale-[1.02] animate-fadeInUp" style="animation-delay: 0.5s;">
-                        <div class="text-6xl text-accent-teal mb-4"><i class="fas fa-palette"></i></div>
-                        <h4 class="text-2xl font-bold mb-3">Accounting and Automation</h4>
-                        <p class="text-gray-300 mb-4">
-                            Clear knowledge of Accounting fundamentals and record management, using most popular software Tally Prime.<br>
-                            Advance Excel knowledge, Using advance formulas | Power Query 
-                        </p>
-                        <p class="text-sm font-semibold text-accent-teal">Key Stack: Power Query , Power BI , Python</p>
-                    </div>
-
-                    <!-- Backend Robustness -->
-                    <div class="p-8 rounded-xl bg-primary-light border border-accent-teal/50 shadow-xl transition duration-300 hover:shadow-accent-teal/30 hover:scale-[1.02] animate-fadeInUp" style="animation-delay: 0.7s;">
-                        <div class="text-6xl text-accent-teal mb-4"><i class="fas fa-server"></i></div>
-                        <h4 class="text-2xl font-bold mb-3">Programming Languages</h4>
-                        <p class="text-gray-300 mb-4">
-                            Designing and implementing websites using HTML CSS and JavaScript, Handling large Data with Python using Strong libraries for manipulating and cleaning data and for visualization.
-                        </p>
-                        <p class="text-sm font-semibold text-accent-teal">Key Stack: HTML, CSS & JS | Python (Pandas, NumPy, Matplotlib)</p>
-                    </div>
-                    
-                    <!-- Data & Cloud -->
-                    <div class="p-8 rounded-xl bg-primary-light border border-accent-teal/50 shadow-xl transition duration-300 hover:shadow-accent-teal/30 hover:scale-[1.02] animate-fadeInUp" style="animation-delay: 0.9s;">
-                        <div class="text-6xl text-accent-teal mb-4"><i class="fas fa-cloud-upload-alt"></i></div>
-                        <h4 class="text-2xl font-bold mb-3">Data Management</h4>
-                        <p class="text-gray-300 mb-4">
-                            Expertise in both MS Access and My SQL management. Proficient in handling DataBases and manipulating them using SQL Language
-                        </p>
-                        <p class="text-sm font-semibold text-accent-teal">Key Stack: Structured query Language</p>
+                <!-- Image -->
+                <div class="lg:w-1/2 flex justify-center lg:justify-end z-10 animate-slide-up" style="animation-delay: 0.3s;">
+                    <div class="relative w-72 h-72 md:w-[450px] md:h-[450px] animate-float">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-accent/20 to-accent2/20 rounded-full blur-3xl -z-10"></div>
+                        <div class="w-full h-full rounded-[2rem] rotate-3 overflow-hidden border border-white/10 glass-panel relative group">
+                            <img src="my image2.jpg" alt="Tawseef Ahmad" 
+                                 class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700 transform group-hover:scale-110"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/400x400/1E293B/14B8A6?text=Profile'">
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- 3. DETAILED SNAPSHOTS: Summary of other pages (Ensure to edit placeholders) -->
-        <section id="snapshots" class="py-16 md:py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h3 class="text-3xl md:text-4xl font-extrabold text-center text-primary-dark mb-12">
-                    Portfolio <span class="text-accent-teal">Journey</span>
-                </h3>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    
-                    <!-- About Me Snapshot -->
-                    <div class="bg-gray-50 p-6 rounded-xl shadow-lg border-l-4 border-accent-teal hover:bg-gray-100 transition duration-300">
-                        <div class="text-3xl text-accent-teal mb-3"><i class="fas fa-user-circle"></i></div>
-                        <h4 class="text-xl font-bold text-primary-dark mb-2">My Story & Vision</h4>
-                        <p class="text-gray-600 mb-4">
-                            Beyond the code, I am a strategic thinker and problem solver. I believe in **continuous improvement** and translating complex challenges into **elegant, maintainable software**. My professional ethos is driven by the desire to build technology that matters.
+    <!-- 2. ABOUT & PHILOSOPHY (Consolidated from about.html) -->
+    <section id="about" class="py-20 bg-dark/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Narrative Part -->
+            <div class="flex flex-col lg:flex-row gap-16 items-start mb-20">
+                 <!-- Title -->
+                 <div class="lg:w-1/3 sticky top-28">
+                    <h3 class="section-title text-3xl font-bold text-white">The Human Narrative</h3>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        Merging logic with creativity to transform complex challenges into elegant solutions.
+                    </p>
+                    <div class="glass-panel p-6 rounded-xl border-l-4 border-accent">
+                        <i class="fas fa-quote-left text-accent/50 text-2xl mb-2"></i>
+                        <p class="text-gray-300 italic">
+                            I don't just execute tasks; I find fulfillment in the process of transformation.
                         </p>
-                        <a href="about.html" class="text-sm font-semibold text-accent-teal hover:text-teal-700 transition duration-300 group">
-                            Dive Deeper into My Background 
-                            <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i>
-                        </a>
                     </div>
+                </div>
 
-                    <!-- Education Snapshot -->
-                    <div class="bg-gray-50 p-6 rounded-xl shadow-lg border-l-4 border-accent-teal hover:bg-gray-100 transition duration-300">
-                        <div class="text-3xl text-accent-teal mb-3"><i class="fas fa-university"></i></div>
-                        <h4 class="text-xl font-bold text-primary-dark mb-2">Academic Foundation</h4>
-                        <p class="text-gray-600 mb-4">
-                            My Computer Operator and Programming Assistant, and self-learning provided a rigorous foundation in **Algorithms, Data Structures, and Software Engineering principles**. This academic discipline underpins my professional approach.
-                        </p>
-                        <a href="education.html" class="text-sm font-semibold text-accent-teal hover:text-teal-700 transition duration-300 group">
-                            Review My Full Credentials 
-                            <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i>
-                        </a>
-                    </div>
-                    
-                    <!-- Hobbies & Interests Snapshot -->
-                    <div class="bg-gray-50 p-6 rounded-xl shadow-lg border-l-4 border-accent-teal hover:bg-gray-100 transition duration-300">
-                        <div class="text-3xl text-accent-teal mb-3"><i class="fas fa-mountain"></i></div>
-                        <h4 class="text-xl font-bold text-primary-dark mb-2">Life Beyond Code</h4>
-                        <p class="text-gray-600 mb-4">
-                            A well-rounded life fuels creativity. My interests in Competitive Chess, Coding and Reading continuously books enhance my ability to think creatively and maintain focus, bringing a refreshed perspective to every project.
-                        </p>
-                        <a href="hobbies.html" class="text-sm font-semibold text-accent-teal hover:text-teal-700 transition duration-300 group">
-                            Discover My Interests 
-                            <i class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i>
-                        </a>
+                <!-- Main Text -->
+                <div class="lg:w-2/3">
+                    <div class="glass-panel p-8 md:p-12 rounded-3xl relative">
+                        <i class="fas fa-user-astronaut absolute top-8 right-8 text-6xl text-white/5"></i>
+                        <div class="space-y-6 text-gray-300 leading-relaxed text-lg">
+                            <p>
+                                I am a professional driven by a simple, powerful idea: <strong class="text-white">to turn complex challenges into simple, elegant solutions.</strong> My journey—from my foundational education in Computer Science & Financial Accounting to my daily practice of applying my technical skills—is defined by a constant desire to learn, build, and connect with people.
+                            </p>
+                            <p>
+                                I believe the best work happens at the intersection of logic and creativity. Whether I am writing Python scripts to automate tedious workflows or designing intuitive interfaces, my goal remains the same: to create tools that empower people and simplify their lives.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- 4. CONTACT BANNER: Final CTA -->
-        <section id="contact-cta" class="bg-primary-dark py-16">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-                <h3 class="text-3xl md:text-4xl font-extrabold mb-4">
-                    Ready to Start a Project?
-                </h3>
-                <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-                    Whether you have a full-scale application in mind or a simple concept you want to validate, I'm ready to bring my full-stack expertise to your team.
-                </p>
-                <a href="contact.html" class="inline-block px-10 py-4 text-xl font-bold rounded-lg shadow-2xl bg-accent-teal text-white hover:bg-teal-600 transition duration-300 transform hover:scale-105 ring-4 ring-white/50">
-                    <i class="fas fa-envelope mr-2"></i> Get in Touch Now
+            <!-- Philosophy Grid -->
+            <div class="text-center mb-12">
+                <h3 class="text-2xl font-bold text-white">Guiding Philosophies</h3>
+                <p class="text-gray-400">The core values that shape my decisions and code.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 1. The Joy of Building -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center text-accent text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">The Joy of Building</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        My technical skills are born from a love for construction. Whether tackling architecture or code, I find joy in using logic to bring a vision to life.
+                    </p>
+                </div>
+
+                <!-- 2. Structured Curiosity -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Structured Curiosity</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        I hunt for the underlying structural pattern to prevent future recurrence, rather than just patching the symptom.
+                    </p>
+                </div>
+
+                <!-- 3. Shared Goals -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-people-carry-box"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Shared Goals</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        I thrive by ensuring every voice—from the user to the business leader—is heard, translating diverse needs into a unified plan.
+                    </p>
+                </div>
+
+                <!-- 4. Eagerness to Grow -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Eagerness to Grow</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        I possess an adaptive mindset that welcomes new frameworks. This ensures my skills are always sharp and relevant.
+                    </p>
+                </div>
+
+                <!-- 5. Scaling Impact -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Scaling Impact</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        The most rewarding part of mastery is passing it on. I actively engage in mentoring and creating documentation.
+                    </p>
+                </div>
+
+                <!-- 6. Quality -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Commitment to Quality</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        I ensure my technical decisions are ethical, prioritizing user privacy, transparency, and long-term maintainability.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SKILLS & TOOLKIT (Summary of Skills.html) -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="section-title text-3xl font-bold text-white">Technical Proficiency</h3>
+            <p class="text-gray-400 mb-10 max-w-2xl">
+                My skillset is a hybrid of financial precision and development logic. This combination allows me to build tools that understand business needs.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Python -->
+                <a href="skills.html" class="glass-panel p-6 rounded-2xl hover:bg-white/5 transition duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 text-2xl group-hover:scale-110 transition">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <span class="text-xs font-bold text-gray-500 border border-white/10 px-2 py-1 rounded">DEV</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Python & Data</h4>
+                    <p class="text-sm text-gray-400">Pandas, NumPy, and Automation scripting for large datasets.</p>
+                </a>
+
+                <!-- Tally -->
+                <a href="skills.html" class="glass-panel p-6 rounded-2xl hover:bg-white/5 transition duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center text-green-400 text-2xl group-hover:scale-110 transition">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <span class="text-xs font-bold text-gray-500 border border-white/10 px-2 py-1 rounded">FINANCE</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Accounting</h4>
+                    <p class="text-sm text-gray-400">Tally Prime mastery, GST compliance, and financial reporting.</p>
+                </a>
+
+                <!-- Automation -->
+                <a href="skills.html" class="glass-panel p-6 rounded-2xl hover:bg-white/5 transition duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-400 text-2xl group-hover:scale-110 transition">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <span class="text-xs font-bold text-gray-500 border border-white/10 px-2 py-1 rounded">OPS</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Automation</h4>
+                    <p class="text-sm text-gray-400">Excel VBA macros, Power Query, and workflow optimization.</p>
                 </a>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </main>
+    <!-- 4. EDUCATION & CERTIFICATIONS (Summary of Education.html) -->
+    <section class="py-20 bg-white/5 relative overflow-hidden">
+        <div class="absolute inset-0 bg-dark/90"></div> <!-- Overlay for contrast -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-10">
+                <div>
+                    <h3 class="section-title text-3xl font-bold text-white">Academic Foundation</h3>
+                    <p class="text-gray-400 mt-2">Formal training that underpins my professional capabilities.</p>
+                </div>
+                <a href="education.html" class="hidden md:inline-block px-6 py-2 rounded-full border border-white/20 text-white text-sm hover:bg-white hover:text-dark transition">View Full Timeline</a>
+            </div>
 
-    <!-- FOOTER (Consistent) -->
-    <footer class="bg-primary-dark text-white text-center py-8 shadow-inner border-t-4 border-accent-teal">
-        <p class="text-sm font-light mb-4">Tawseef Ahmad Portfolio | Built with Purpose & Coffee | &copy; 2025. All rights reserved.</p>
-        <div class="flex justify-center space-x-6">
-            <!-- Social Links (Placeholders) -->
-            <a href="https://www.instagram.com/tawseef___ahmad12/?__pwa=1" target="_blank" title="Instagram Profile" class="text-2xl hover:text-accent-teal transition duration-300 transform hover:scale-125">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/tawseef-ahmad-b9b063378?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn Profile" class="text-2xl hover:text-accent-teal transition duration-300 transform hover:scale-125">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="https://github.com/Tawseef-Rather" target="_blank" title="GitHub Repositories" class="text-2xl hover:text-accent-teal transition duration-300 transform hover:scale-125">
-                <i class="fab fa-github"></i>
-            </a>
+            <div class="space-y-4">
+                <!-- Item 1 -->
+                <div class="flex flex-col md:flex-row gap-4 md:items-center justify-between p-6 glass-panel rounded-xl hover:border-accent/50 transition duration-300">
+                    <div>
+                        <h4 class="text-lg font-bold text-white">Computer Operator & Programming Assistant (COPA)</h4>
+                        <p class="text-accent text-sm">Government Industrial Training Institute (ITI), Tral</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-gray-500 text-sm block">2024 - 2025</span>
+                        <span class="text-xs text-gray-600 bg-white/5 px-2 py-1 rounded mt-1 inline-block">Office Automation & VBA</span>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="flex flex-col md:flex-row gap-4 md:items-center justify-between p-6 glass-panel rounded-xl hover:border-accent/50 transition duration-300">
+                    <div>
+                        <h4 class="text-lg font-bold text-white">Grass Root Telecom Provider Course</h4>
+                        <p class="text-accent text-sm">Pradhan Mantri Kaushal Vikas Yojana (PMKVY)</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-gray-500 text-sm block">2025</span>
+                        <span class="text-xs text-gray-600 bg-white/5 px-2 py-1 rounded mt-1 inline-block">Networking & Infrastructure</span>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="flex flex-col md:flex-row gap-4 md:items-center justify-between p-6 glass-panel rounded-xl hover:border-accent/50 transition duration-300">
+                    <div>
+                        <h4 class="text-lg font-bold text-white">Higher Secondary Education (10+2)</h4>
+                        <p class="text-accent text-sm">JKBOSE</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-gray-500 text-sm block">2024</span>
+                        <span class="text-xs text-gray-600 bg-white/5 px-2 py-1 rounded mt-1 inline-block">Academic Foundation</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 md:hidden">
+                 <a href="education.html" class="block text-center px-6 py-3 rounded-xl border border-white/20 text-white text-sm hover:bg-white hover:text-dark transition">View Full Timeline</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. CREATIVE OUTPUT (Summary of Books & Designs) -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="section-title text-3xl font-bold text-white">Published Works & Designs</h3>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Books Column -->
+                <div class="glass-panel p-8 rounded-2xl">
+                    <div class="flex justify-between items-center mb-6">
+                        <h4 class="text-2xl font-bold text-white"><i class="fas fa-book-open text-accent mr-2"></i> Authored Books</h4>
+                        <a href="books.html" class="text-sm text-gray-500 hover:text-white transition">View All</a>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Book 1 -->
+                        <div class="flex gap-4 group">
+                            <div class="w-16 h-20 bg-gray-800 rounded border border-white/10 flex-shrink-0 overflow-hidden">
+                                <img src="tally prime book cover.png" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition" alt="Tally">
+                            </div>
+                            <div>
+                                <h5 class="text-white font-bold group-hover:text-accent transition">Mastering Tally Prime</h5>
+                                <p class="text-xs text-gray-400 mb-2">Accounting basics to advanced GST entries.</p>
+                                <a href="books.html" class="text-xs text-accent underline">Read Summary</a>
+                            </div>
+                        </div>
+                        <!-- Book 2 -->
+                        <div class="flex gap-4 group">
+                            <div class="w-16 h-20 bg-gray-800 rounded border border-white/10 flex-shrink-0 overflow-hidden">
+                                <img src="power query book cover inner.png" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition" alt="Power Query">
+                            </div>
+                            <div>
+                                <h5 class="text-white font-bold group-hover:text-accent transition">Power Query Mastery</h5>
+                                <p class="text-xs text-gray-400 mb-2">Automating Excel data cleaning & transformation.</p>
+                                <a href="books.html" class="text-xs text-accent underline">Read Summary</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Designs Column (Updated with Real Image Placeholders) -->
+                <div class="glass-panel p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-center mb-6">
+                            <h4 class="text-2xl font-bold text-white"><i class="fas fa-palette text-pink-500 mr-2"></i> Graphic Design</h4>
+                            <span class="bg-pink-500/20 text-pink-300 text-xs px-2 py-1 rounded">New</span>
+                        </div>
+                        
+                        <p class="text-gray-300 mb-6">
+                            Currently undertaking a **10-Day Design Challenge**. I upload a new graphic project daily, providing both the viewable PNG and the editable Affinity file.
+                        </p>
+                        
+                        <!-- Updated Grid with Images -->
+                        <div class="grid grid-cols-3 gap-3 mb-6">
+                            <div class="aspect-square bg-white/5 rounded-lg border border-white/10 overflow-hidden group/item relative">
+                                <img src="day1.png" alt="Day 1 Design" class="w-full h-full object-cover opacity-70 group-hover/item:opacity-100 transition" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-xs text-gray-500\'>Day 1</div>'">
+                                <div class="absolute bottom-0 left-0 w-full bg-black/60 text-white text-[10px] text-center py-1">Day 1</div>
+                            </div>
+                            <div class="aspect-square bg-white/5 rounded-lg border border-white/10 overflow-hidden group/item relative">
+                                <img src="day2.png" alt="Day 2 Design" class="w-full h-full object-cover opacity-70 group-hover/item:opacity-100 transition" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-xs text-gray-500\'>Day 2</div>'">
+                                <div class="absolute bottom-0 left-0 w-full bg-black/60 text-white text-[10px] text-center py-1">Day 2</div>
+                            </div>
+                            <div class="aspect-square bg-white/5 rounded-lg border border-white/10 overflow-hidden group/item relative">
+                                <img src="day3.png" alt="Day 3 Design" class="w-full h-full object-cover opacity-70 group-hover/item:opacity-100 transition" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-xs text-gray-500\'>Day 3</div>'">
+                                <div class="absolute bottom-0 left-0 w-full bg-black/60 text-white text-[10px] text-center py-1">Day 3</div>
+                            </div>
+                        </div>
+
+                        <a href="graphic_design.html" class="inline-block w-full py-3 text-center rounded-lg bg-pink-600 text-white font-bold hover:bg-pink-500 transition shadow-lg">
+                            View Design Gallery
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. HOBBIES (Consolidated from hobbies.html) -->
+    <section id="hobbies" class="py-20 relative">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent2/5 rounded-full blur-[100px] -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Intro Card -->
+            <div class="glass-panel p-8 md:p-12 rounded-3xl mb-16 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                    The Pursuit of Mastery
+                </h2>
+                <div class="space-y-4 text-gray-400 leading-relaxed text-lg">
+                    <p>
+                        Hobbies are not merely distractions; they are <strong class="text-white">deliberate investments</strong> in human capital and cognitive health. The time spent in purposeful play directly translates into improved problem-solving skills, reduced stress, and heightened creativity.
+                    </p>
+                    <p>
+                        True skill development—the kind of immersive, focused effort required by many hobbies—is the path to producing rare and valuable output in a competitive economy.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Hobbies Grid -->
+            <div class="text-center mb-12">
+                <h3 class="section-title text-3xl font-bold text-white">Core Interests</h3>
+                <p class="text-gray-400">Activities that sharpen strategic thinking and broaden perspective.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 1. Coding & Content -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
+                    <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center text-accent text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Coding & Content Creation</h4>
+                    <p class="text-xs text-accent2 uppercase tracking-wider font-bold mb-4">Construction & Communication</p>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-grow">
+                        Coding trains the mind in logical, systematic thinking. Content creation cultivates clarity and persuasive communication, bridging technical execution with narrative impact.
+                    </p>
+                    <div class="pt-4 border-t border-white/5">
+                        <p class="text-xs text-gray-500 italic">**Value:** Digital self-sufficiency & creativity.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Strategic Thinking -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
+                    <div class="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Strategic Thinking</h4>
+                    <p class="text-xs text-accent2 uppercase tracking-wider font-bold mb-4">Planning</p>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-grow">
+                        Involves setting long-term goals and efficiently allocating resources. This meta-skill is complemented by continuous learning, preventing cognitive stagnation.
+                    </p>
+                    <div class="pt-4 border-t border-white/5">
+                        <p class="text-xs text-gray-500 italic">**Value:** Foresight & mental agility.</p>
+                    </div>
+                </div>
+
+                <!-- 3. Traveling -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
+                    <div class="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Traveling & Exploring</h4>
+                    <p class="text-xs text-accent2 uppercase tracking-wider font-bold mb-4">Perspective</p>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-grow">
+                        An exercise in logistical planning and cultural intelligence. It teaches humility, adaptability, and resourcefulness when navigating unfamiliar situations.
+                    </p>
+                    <div class="pt-4 border-t border-white/5">
+                        <p class="text-xs text-gray-500 italic">**Value:** Deep empathy & resilience.</p>
+                    </div>
+                </div>
+
+                <!-- 4. Chess -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
+                    <div class="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center text-white text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-chess-knight"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Playing Chess</h4>
+                    <p class="text-xs text-accent2 uppercase tracking-wider font-bold mb-4">Tactics</p>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-grow">
+                        The distilled practice of strategy and foresight. It forces you to analyze complex positions, calculate multiple moves ahead, and learn from mistakes immediately.
+                    </p>
+                    <div class="pt-4 border-t border-white/5">
+                        <p class="text-xs text-gray-500 italic">**Value:** Non-linear thinking & composure.</p>
+                    </div>
+                </div>
+
+                <!-- 5. Reading -->
+                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
+                    <div class="w-14 h-14 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Reading Books</h4>
+                    <p class="text-xs text-accent2 uppercase tracking-wider font-bold mb-4">Knowledge</p>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-grow">
+                        The low-cost, high-yield method of knowledge acquisition. Non-fiction provides expertise, while fiction enhances emotional intelligence.
+                    </p>
+                    <div class="pt-4 border-t border-white/5">
+                        <p class="text-xs text-gray-500 italic">**Value:** Expanded frame of reference.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CONTACT CTA -->
+    <section class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+                Ready to Collaborate?
+            </h2>
+            <p class="text-xl text-gray-400 mb-10">
+                Let's combine my technical skills and your vision to build something remarkable.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="contact.html" class="px-10 py-4 rounded-full bg-accent text-dark text-lg font-bold hover:bg-white transition-all shadow-lg hover:shadow-[0_0_30px_rgba(45,212,191,0.5)]">
+                    Get In Touch <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+                <a href="mailto:tawseefahmad@example.com" class="px-10 py-4 rounded-full border border-white/20 text-white text-lg font-bold hover:bg-white/5 transition-all">
+                    Email Directly
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 bg-[#050505] pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+            <div class="flex gap-8 mb-8">
+                <a href="https://github.com/Tawseef-Rather" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/tawseef-ahmad-b9b063378" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-blue-400 hover:bg-white/10 transition">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="https://www.instagram.com/tawseef___ahmad12" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-pink-500 hover:bg-white/10 transition">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+            </div>
+            <p class="text-gray-500 text-sm">
+                &copy; 2025 Tawseef Ahmad. Built with <span class="text-accent">Precision</span> & <span class="text-accent2">Flow</span>.
+            </p>
         </div>
     </footer>
     
     <script>
-        // --- MOBILE MENU LOGIC (Consistent) ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const openIcon = document.getElementById('menu-icon-open');
-            const closeIcon = document.getElementById('menu-icon-close');
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
 
-            /**
-             * Toggles the visibility of the mobile menu and switches the hamburger/close icon.
-             */
-            function toggleMobileMenu() {
-                const isMenuOpen = mobileMenu.classList.contains('visible-menu');
-
-                if (isMenuOpen) {
-                    // Close the menu
-                    mobileMenu.classList.remove('visible-menu');
-                    mobileMenu.classList.add('hidden-menu');
-                    openIcon.classList.remove('hidden');
-                    closeIcon.classList.add('hidden');
-                } else {
-                    // Open the menu
-                    mobileMenu.classList.remove('hidden-menu');
-                    mobileMenu.classList.add('visible-menu');
-                    openIcon.classList.add('hidden');
-                    closeIcon.classList.remove('hidden');
-                }
+        btn.addEventListener('click', () => {
+            if (menu.classList.contains('menu-hidden')) {
+                menu.classList.remove('menu-hidden');
+                menu.classList.add('menu-visible');
+            } else {
+                menu.classList.remove('menu-visible');
+                menu.classList.add('menu-hidden');
             }
-
-            if (menuButton) {
-                menuButton.addEventListener('click', toggleMobileMenu);
-            }
-
-            // Initial check to ensure menu starts closed
-            if (mobileMenu) {
-                mobileMenu.classList.add('hidden-menu');
-            }
-            
-            console.log("Home Page Loaded - Ready for professional viewing!");
         });
+        
+        console.log("Master Dashboard Loaded");
     </script>
 </body>
 </html>
