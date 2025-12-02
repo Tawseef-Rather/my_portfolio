@@ -135,7 +135,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo(0,0); return false;">
+                <a href="index.html" class="flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo(0,0); return false;">
                     <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-white/10 group-hover:border-accent transition duration-500">
                         <img src="my image.jpg" alt="Logo" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/50x50/0F172A/14B8A6?text=TA'">
                     </div>
@@ -147,12 +147,12 @@
 
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-1">
-                    <a href="#" class="px-4 py-2 rounded-full text-sm font-medium text-white bg-white/10 border border-white/5 transition-all">Home</a>
-                    <a href="#skills" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Skills</a>
-                    <a href="#designs" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Designs</a>
-                    <a href="#books" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Books</a>
-                    <a href="#education" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Education</a>
-                    <a href="#contact" class="ml-2 px-6 py-2 rounded-full text-sm font-bold bg-accent text-dark hover:bg-white hover:shadow-[0_0_20px_rgba(45,212,191,0.4)] transition-all">Contact</a>
+                    <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium text-white bg-white/10 border border-white/5 transition-all">Home</a>
+                    <a href="skills.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Skills</a>
+                    <a href="graphic_design.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Designs</a>
+                    <a href="books.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Books</a>
+                    <a href="education.html" class="px-4 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Education</a>
+                    <a href="contact.html" class="ml-2 px-6 py-2 rounded-full text-sm font-bold bg-accent text-dark hover:bg-white hover:shadow-[0_0_20px_rgba(45,212,191,0.4)] transition-all">Contact</a>
                 </nav>
 
                 <!-- Mobile Button -->
@@ -163,22 +163,23 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden menu-hidden bg-[#0a0a0a] border-t border-white/10">
+        <div id="mobile-menu" class="md:hidden menu-hidden bg-[#0a0a0a] border-t border-white/10 overflow-y-auto max-h-[80vh]">
             <div class="px-6 pt-4 pb-8 space-y-2">
-                <a href="#" class="block px-4 py-3 rounded-xl text-base font-medium text-white bg-white/10 border-l-4 border-accent mobile-link">Home</a>
-                <a href="#skills" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5 mobile-link">Skills</a>
-                <a href="#designs" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5 mobile-link">Designs</a>
-                <a href="#books" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5 mobile-link">Books</a>
-                <a href="#education" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5 mobile-link">Education</a>
-                <a href="#contact" class="block mt-6 px-4 py-3 rounded-xl text-base font-bold text-center bg-accent text-dark mobile-link">Contact Me</a>
+                <a href="index.html" class="block px-4 py-3 rounded-xl text-base font-medium text-white bg-white/10 border-l-4 border-accent mobile-link">Home</a>
+                <a href="skills.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5 mobile-link">Skills</a>
+                <a href="graphic_design.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5 mobile-link">Designs</a>
+                <a href="books.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5 mobile-link">Books</a>
+                <a href="education.html" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-400 hover:text-white hover:bg-white/5 mobile-link">Education</a>
+                <a href="contact.html" class="block mt-6 px-4 py-3 rounded-xl text-base font-bold text-center bg-accent text-dark mobile-link">Contact Me</a>
             </div>
         </div>
     </header>
 
     <!-- 1. HERO SECTION (Identity) -->
-    <section class="relative min-h-[90vh] flex items-center pt-20">
+    <!-- Responsive Changes: min-h-[90vh] changed to min-h-[85vh] for mobile, pt-20 retained -->
+    <section class="relative min-h-[85vh] md:min-h-[90vh] flex items-center pt-24 md:pt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
+            <div class="flex flex-col-reverse lg:flex-row items-center gap-8 md:gap-12 lg:gap-20">
                 <!-- Text -->
                 <div class="w-full lg:w-1/2 text-center lg:text-left z-10">
                     <div class="animate-slide-up" style="animation-delay: 0.1s;">
@@ -187,6 +188,7 @@
                         </span>
                     </div>
                     
+                    <!-- Responsive Changes: Text sizing refined for smaller screens -->
                     <h1 class="animate-slide-up text-4xl sm:text-5xl md:text-7xl font-black text-white leading-[1.1] mb-6" style="animation-delay: 0.2s;">
                         Tawseef <span class="text-gradient">Ahmad</span>
                     </h1>
@@ -199,11 +201,12 @@
                         "A Python Developer automating the complex, an Accountant ensuring precision, and a Designer crafting visual narratives. This portfolio is the sum of those parts."
                     </p>
 
+                    <!-- Responsive Changes: w-full for buttons on mobile -->
                     <div class="animate-slide-up flex flex-col sm:flex-row gap-4 justify-center lg:justify-start" style="animation-delay: 0.5s;">
-                        <a href="#about" class="px-8 py-4 bg-white text-dark font-bold rounded-full transition-all hover:bg-gray-200">
+                        <a href="#about" class="w-full sm:w-auto px-8 py-4 bg-white text-dark font-bold rounded-full transition-all hover:bg-gray-200 text-center">
                             Explore Full Profile
                         </a>
-                        <a href="#contact" class="px-8 py-4 rounded-full border border-white/20 text-white font-bold hover:bg-white/5 transition-all">
+                        <a href="contact.html" class="w-full sm:w-auto px-8 py-4 rounded-full border border-white/20 text-white font-bold hover:bg-white/5 transition-all text-center">
                             Hire Me
                         </a>
                     </div>
@@ -211,6 +214,7 @@
 
                 <!-- Image -->
                 <div class="w-full lg:w-1/2 flex justify-center lg:justify-end z-10 animate-slide-up" style="animation-delay: 0.3s;">
+                    <!-- Responsive Changes: Dimensions adjusted with tailwind classes -->
                     <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[450px] md:h-[450px] animate-float">
                         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-accent/20 to-accent2/20 rounded-full blur-3xl -z-10"></div>
                         <div class="w-full h-full rounded-[2rem] rotate-3 overflow-hidden border border-white/10 glass-panel relative group">
@@ -225,10 +229,11 @@
     </section>
 
     <!-- 2. ABOUT & PHILOSOPHY -->
-    <section id="about" class="py-20 bg-dark/30">
+    <!-- Responsive Changes: py-16 for mobile, py-20 for desktop -->
+    <section id="about" class="py-16 md:py-20 bg-dark/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Narrative Part -->
-            <div class="flex flex-col lg:flex-row gap-16 items-start mb-20">
+            <div class="flex flex-col lg:flex-row gap-10 md:gap-16 items-start mb-16 md:mb-20">
                  <!-- Title -->
                  <div class="w-full lg:w-1/3 lg:sticky lg:top-28">
                     <h3 class="section-title text-3xl font-bold text-white">The Human Narrative</h3>
@@ -245,7 +250,8 @@
 
                 <!-- Main Text -->
                 <div class="w-full lg:w-2/3">
-                    <div class="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden">
+                    <!-- Responsive Changes: p-6 for mobile, p-12 for desktop -->
+                    <div class="glass-panel p-6 md:p-12 rounded-3xl relative overflow-hidden">
                         <i class="fas fa-user-astronaut absolute top-8 right-8 text-6xl text-white/5"></i>
                         <div class="space-y-6 text-gray-300 leading-relaxed text-lg relative z-10">
                             <p>
@@ -267,7 +273,8 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- 1. The Joy of Building -->
-                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                <!-- Responsive Changes: p-6 for mobile, p-8 for desktop -->
+                <div class="glass-panel p-6 md:p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
                     <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center text-accent text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fas fa-laptop-code"></i>
                     </div>
@@ -278,7 +285,7 @@
                 </div>
 
                 <!-- 2. Structured Curiosity -->
-                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
                     <div class="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fas fa-search-plus"></i>
                     </div>
@@ -289,7 +296,7 @@
                 </div>
 
                 <!-- 3. Shared Goals -->
-                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
                     <div class="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fas fa-people-carry-box"></i>
                     </div>
@@ -300,7 +307,7 @@
                 </div>
 
                 <!-- 4. Eagerness to Grow -->
-                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
                     <div class="w-14 h-14 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-400 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
@@ -311,7 +318,7 @@
                 </div>
 
                 <!-- 5. Scaling Impact -->
-                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
                     <div class="w-14 h-14 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fas fa-hand-holding-heart"></i>
                     </div>
@@ -322,7 +329,7 @@
                 </div>
 
                 <!-- 6. Quality -->
-                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group">
                     <div class="w-14 h-14 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fas fa-shield-alt"></i>
                     </div>
@@ -336,7 +343,7 @@
     </section>
 
     <!-- 3. SKILLS & TOOLKIT -->
-    <section id="skills" class="py-20">
+    <section id="skills" class="py-16 md:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h3 class="section-title text-3xl font-bold text-white">Technical Proficiency</h3>
             <p class="text-gray-400 mb-10 max-w-2xl">
@@ -384,7 +391,7 @@
     </section>
 
     <!-- 4. EDUCATION & CERTIFICATIONS -->
-    <section id="education" class="py-20 bg-white/5 relative overflow-hidden">
+    <section id="education" class="py-16 md:py-20 bg-white/5 relative overflow-hidden">
         <div class="absolute inset-0 bg-dark/90"></div> <!-- Overlay for contrast -->
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
@@ -441,17 +448,18 @@
     </section>
 
     <!-- 5. CREATIVE OUTPUT -->
-    <section id="books" class="py-20">
+    <section id="books" class="py-16 md:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h3 class="section-title text-3xl font-bold text-white">Published Works & Designs</h3>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 
                 <!-- Books Column -->
-                <div class="glass-panel p-8 rounded-2xl">
+                <!-- Responsive Changes: p-6 for mobile, p-8 for desktop -->
+                <div class="glass-panel p-6 md:p-8 rounded-2xl">
                     <div class="flex justify-between items-center mb-6">
                         <h4 class="text-2xl font-bold text-white"><i class="fas fa-book-open text-accent mr-2"></i> Authored Books</h4>
-                        <a href="#books" class="text-sm text-gray-500 hover:text-white transition">View All</a>
+                        <a href="books.html" class="text-sm text-gray-500 hover:text-white transition">View All</a>
                     </div>
                     
                     <div class="space-y-6">
@@ -463,7 +471,7 @@
                             <div>
                                 <h5 class="text-white font-bold group-hover:text-accent transition">Mastering Tally Prime</h5>
                                 <p class="text-xs text-gray-400 mb-2">Accounting basics to advanced GST entries.</p>
-                                <a href="#books" class="text-xs text-accent underline">Read Summary</a>
+                                <a href="books.html" class="text-xs text-accent underline">Read Summary</a>
                             </div>
                         </div>
                         <!-- Book 2 -->
@@ -474,14 +482,14 @@
                             <div>
                                 <h5 class="text-white font-bold group-hover:text-accent transition">Power Query Mastery</h5>
                                 <p class="text-xs text-gray-400 mb-2">Automating Excel data cleaning & transformation.</p>
-                                <a href="#books" class="text-xs text-accent underline">Read Summary</a>
+                                <a href="books.html" class="text-xs text-accent underline">Read Summary</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Designs Column -->
-                <div id="designs" class="glass-panel p-8 rounded-2xl relative overflow-hidden group">
+                <div id="designs" class="glass-panel p-6 md:p-8 rounded-2xl relative overflow-hidden group">
                     <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
                     
                     <div class="relative z-10">
@@ -495,6 +503,7 @@
                         </p>
                         
                         <!-- Updated Grid with Images -->
+                        <!-- Responsive Changes: 3 cols is OK on mobile for thumbnails, but ensuring gap is small (gap-3 is good) -->
                         <div class="grid grid-cols-3 gap-3 mb-6">
                             <div class="aspect-square bg-white/5 rounded-lg border border-white/10 overflow-hidden group/item relative">
                                 <img src="day1.png" alt="Day 1" class="w-full h-full object-cover opacity-70 group-hover/item:opacity-100 transition" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-xs text-gray-500\'>Day 1</div>'">
@@ -507,7 +516,7 @@
                             </div>
                         </div>
 
-                        <a href="#designs" class="inline-block w-full py-3 text-center rounded-lg bg-pink-600 text-white font-bold hover:bg-pink-500 transition shadow-lg">
+                        <a href="graphic_design.html" class="inline-block w-full py-3 text-center rounded-lg bg-pink-600 text-white font-bold hover:bg-pink-500 transition shadow-lg">
                             View Design Gallery
                         </a>
                     </div>
@@ -518,12 +527,12 @@
     </section>
 
     <!-- 6. HOBBIES -->
-    <section id="hobbies" class="py-20 relative">
+    <section id="hobbies" class="py-16 md:py-20 relative">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent2/5 rounded-full blur-[100px] -z-10"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Intro Card -->
-            <div class="glass-panel p-8 md:p-12 rounded-3xl mb-16 relative overflow-hidden">
+            <div class="glass-panel p-6 md:p-12 rounded-3xl mb-12 md:mb-16 relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
                 
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -547,7 +556,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- 1. Coding & Content -->
-                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
                     <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center text-accent text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fas fa-code"></i>
                     </div>
@@ -562,7 +571,7 @@
                 </div>
 
                 <!-- 2. Strategic Thinking -->
-                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
                     <div class="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fas fa-brain"></i>
                     </div>
@@ -577,7 +586,7 @@
                 </div>
 
                 <!-- 3. Traveling -->
-                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
                     <div class="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fas fa-globe-asia"></i>
                     </div>
@@ -592,7 +601,7 @@
                 </div>
 
                 <!-- 4. Chess -->
-                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
                     <div class="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center text-white text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fas fa-chess-knight"></i>
                     </div>
@@ -607,7 +616,7 @@
                 </div>
 
                 <!-- 5. Reading -->
-                <div class="glass-panel p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl hover:bg-white/5 transition duration-500 hover:-translate-y-2 group flex flex-col">
                     <div class="w-14 h-14 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-400 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fas fa-book-open"></i>
                     </div>
@@ -625,7 +634,7 @@
     </section>
 
     <!-- 7. CONTACT CTA -->
-    <section id="contact" class="py-24 relative">
+    <section id="contact" class="py-16 md:py-24 relative">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
                 Ready to Collaborate?
@@ -633,11 +642,12 @@
             <p class="text-xl text-gray-400 mb-10">
                 Let's combine my technical skills and your vision to build something remarkable.
             </p>
+            <!-- Responsive Changes: Buttons stack on mobile (flex-col) and are full width (w-full) -->
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#contact" class="px-10 py-4 rounded-full bg-accent text-dark text-lg font-bold hover:bg-white transition-all shadow-lg hover:shadow-[0_0_30px_rgba(45,212,191,0.5)]">
+                <a href="contact.html" class="w-full sm:w-auto px-10 py-4 rounded-full bg-accent text-dark text-lg font-bold hover:bg-white transition-all shadow-lg hover:shadow-[0_0_30px_rgba(45,212,191,0.5)]">
                     Get In Touch <i class="fas fa-arrow-right ml-2"></i>
                 </a>
-                <a href="mailto:tawseefahmad@example.com" class="px-10 py-4 rounded-full border border-white/20 text-white text-lg font-bold hover:bg-white/5 transition-all">
+                <a href="mailto:twhdrather@gmal.com" class="w-full sm:w-auto px-10 py-4 rounded-full border border-white/20 text-white text-lg font-bold hover:bg-white/5 transition-all">
                     Email Directly
                 </a>
             </div>
@@ -645,7 +655,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="border-t border-white/5 bg-[#050505] pt-16 pb-8">
+    <footer class="border-t border-white/5 bg-[#050505] pt-12 md:pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
             <div class="flex gap-8 mb-8">
                 <a href="https://github.com/Tawseef-Rather" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition">
